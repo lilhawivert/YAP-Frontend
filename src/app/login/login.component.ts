@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 @Component({
@@ -12,8 +12,8 @@ export class LoginComponent {
   constructor(private router: Router, private userService: UserService) {}
 
   applyForm = new FormGroup({
-    username: new FormControl(""),
-    password: new FormControl("")
+    username: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.required)
   })
 
   submitForm() {

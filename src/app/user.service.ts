@@ -17,6 +17,7 @@ export class UserService {
       if(response) {
         this.username = username;
         this.userLoggedIn = true;
+        this.router.navigate(["/"])
       }
       else {
         console.log("Unknown Error")
@@ -25,16 +26,11 @@ export class UserService {
   }
 
   login(username: string, password: string): void {
-    this.http.post("http://localhost:8080/login", {username: username, password: password}).subscribe((response) => {
-      if(response) {
+    this.http.post("http://localhost:8080/login", {username: username, password: password}).subscribe(() => {
         this.username = username;
         this.userLoggedIn = true;
         this.router.navigate(["/"])
-      }
-      else {
-        console.log("PASSWORD FAKE")
-      }
-    })
+    });
   }
 
 }

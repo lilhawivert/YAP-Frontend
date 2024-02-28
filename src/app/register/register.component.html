@@ -15,7 +15,7 @@
                     <img src="../../assets/Logo.png" class="logo" alt="YAP Logo">
                 </div>
                 <h1 class="text-center mb-5">Register</h1>
-                <form [formGroup]="applyForm" (submit)="submitForm()">
+                <form [formGroup]="applyForm" (submit)="submitForm()" #form="ngForm">
                     <div class="form-group">
                       <label for="username">Username</label>
                       <input type="text" class="form-control" id="username" placeholder="Enter username" formControlName="username">
@@ -24,7 +24,7 @@
                       <label for="password">Password</label>
                       <input type="password" class="form-control" id="password" placeholder="Enter password" formControlName="password">
                     </div>
-                    <button mat-raised-button color="primary" type="submit">Register</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="form.form.invalid">Register</button>
                     <button mat-button color="primary" class="align-right" type="button" (click)="switchToLogin()">Login</button>
                 </form>
             </div>
