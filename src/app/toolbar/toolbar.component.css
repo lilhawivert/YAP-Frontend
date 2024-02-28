@@ -1,0 +1,32 @@
+.logo {
+    width: 150px;
+    height: auto;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    margin-right: auto;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+.user-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.user-info {
+    margin-bottom: 5px;
+}
