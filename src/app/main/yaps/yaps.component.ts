@@ -13,9 +13,14 @@ export class YapsComponent {
 
   constructor(public yapService: YapService, private userService: UserService) {}
 
+  ngOnInit() {
+    this.yapService.getYaps();
+  }
+
   onClickYap() {
     this.yapService.yapAway({username: ""+this.userService.username, message: this.textareaInput.nativeElement.value}).subscribe(() => {
       this.yapService.loadedYaps.unshift({username: ""+this.userService.username, message: this.textareaInput.nativeElement.value})
+      this.textareaInput.nativeElement.value = "";
     }, () => {
       //on yap error
     });

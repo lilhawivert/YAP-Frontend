@@ -13,16 +13,18 @@ export class YapService {
 
   constructor(private http: HttpClient) { }
 
-  private url: string = "http://localhost:8080/yap";
+  private url: string = "http://localhost:8080/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   public loadedYaps: Yap[] = [];
 
   getYaps() {
-    return this.http.get(this.url);
+    this.http.get<Yap[]>(this.url+"yap").subscribe((val: Yap[]) => {
+      this.loadedYaps = val;
+    })
   }
 
   yapAway(yap: Yap) {
-    return this.http.post(this.url, yap, { headers: this.headers });
+    return this.http.post(this.url+"yap", yap, { headers: this.headers });
   }
 
 }
