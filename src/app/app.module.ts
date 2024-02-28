@@ -28,6 +28,7 @@ import { MainComponent } from './main/main.component';
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
