@@ -16,4 +16,8 @@ export class ToolbarComponent {
     this.router.navigate(["/login"])
   }
 
+  goToHomepage() {
+    this.router.navigate(["/"])
+  }
+
 }

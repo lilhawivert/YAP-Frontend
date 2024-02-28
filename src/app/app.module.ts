@@ -7,6 +7,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MainComponent } from './main/main.component';
+import { YapsComponent } from './main/yaps/yaps.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { MainComponent } from './main/main.component';
     RegisterComponent,
     LoginComponent,
     NotfoundComponent,
-    MainComponent
+    MainComponent,
+    YapsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
     FormsModule,
+    MatCardModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
