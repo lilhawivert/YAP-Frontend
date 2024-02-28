@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
-import { RootService } from '../root.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +9,7 @@ import { RootService } from '../root.service';
 })
 export class LoginComponent {
 
-  constructor(private userService: UserService, private rootService: RootService) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   applyForm = new FormGroup({
     username: new FormControl(""),
@@ -24,7 +24,8 @@ export class LoginComponent {
   }
 
   switchToRegister() {
-    this.rootService.showingRegister = true;
+    this.router.navigate(["/register"]);
+    // this.rootService.showingRegister = true;
   }
 
 }

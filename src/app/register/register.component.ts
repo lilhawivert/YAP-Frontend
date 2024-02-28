@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
-import { RootService } from '../root.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ import { RootService } from '../root.service';
 })
 export class RegisterComponent {
 
-  constructor(private userService: UserService, private rootService: RootService) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   applyForm = new FormGroup({
     username: new FormControl(""),
@@ -25,7 +25,7 @@ export class RegisterComponent {
   }
 
   switchToLogin() {
-    this.rootService.showingRegister = false;
+    this.router.navigate(["/login"])
   }
 
 }

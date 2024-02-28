@@ -1,3 +1,4 @@
-<app-toolbar *ngIf="userService.userLoggedIn"></app-toolbar>
+<!-- <app-toolbar *ngIf="userService.userLoggedIn"></app-toolbar>
 <app-login *ngIf="!userService.userLoggedIn && !rootService.showingRegister"></app-login>
-<app-register *ngIf="!userService.userLoggedIn && rootService.showingRegister"></app-register>
+<app-register *ngIf="!userService.userLoggedIn && rootService.showingRegister"></app-register> -->
+<router-outlet></router-outlet>
