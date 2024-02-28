@@ -2,17 +2,18 @@
     width: 150px;
     height: auto;
 }
+.logo-container {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    margin-right: auto;
+}
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo-container {
-    margin-left: 0.5rem;
-    margin-top: 0.5rem;
-    margin-right: auto;
-}
+
 
 .actions {
     display: flex;

@@ -1,3 +1,11 @@
 .align-right {
     float: right;
 }
+.logo {
+    width: 250px;
+    height: auto;
+}
+.logo-container {
+    margin-top: 0.5rem;
+    text-align: center;
+}
