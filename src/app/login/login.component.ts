@@ -11,6 +11,8 @@ export class LoginComponent {
 
   constructor(private router: Router, private userService: UserService) {}
 
+  loginFailed: boolean = false;
+
   applyForm = new FormGroup({
     username: new FormControl("", Validators.required),
     password: new FormControl("", Validators.required)
@@ -20,7 +22,16 @@ export class LoginComponent {
     this.userService.login(
       this.applyForm.value.username ?? "",
       this.applyForm.value.password ?? ""
-    )
+    ).subscribe(() => {
+      this.userService.username = this.applyForm.value.username;
+      this.userService.userLoggedIn = true;
+      this.router.navigate(["/"])
+  }, () => {
+    this.loginFailed = true;
+    setTimeout(() => {
+      this.loginFailed = false;
+    }, 3000)
+  });
   }
 
   switchToRegister() {

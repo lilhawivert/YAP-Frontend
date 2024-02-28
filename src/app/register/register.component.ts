@@ -12,6 +12,9 @@ export class RegisterComponent {
 
   constructor(private router: Router, private userService: UserService) {}
 
+  registerSuccessful: boolean = false;
+  registerFailed: boolean = false;
+
   applyForm = new FormGroup({
     username: new FormControl("", Validators.required),
     password: new FormControl("", Validators.required)
@@ -21,7 +24,19 @@ export class RegisterComponent {
     this.userService.register(
       this.applyForm.value.username ?? "",
       this.applyForm.value.password ?? ""
-    )
+    ).subscribe(() => {
+        this.userService.username = this.applyForm.value.username;
+        this.userService.userLoggedIn = true;
+        this.registerSuccessful = true;
+        setTimeout(() => {
+          this.router.navigate(["/"])
+        }, 2000)
+    }, () => {
+      this.registerFailed = true;
+      setTimeout(() => {
+        this.registerFailed = false;
+      }, 3000)
+    })
   }
 
   switchToLogin() {

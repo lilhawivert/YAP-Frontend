@@ -13,7 +13,7 @@
 <body style="height: 100vh">
     <div class="container h-100 w-100 align-items-center justify-content-center d-flex">
         <div class="row w-100 d-flex justify-content-center">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6" style="height: 400px">
                 <div class="logo-container">
                     <img src="../../assets/Logo.png" class="logo" alt="YAP Logo">
                 </div>
@@ -35,6 +35,9 @@
                     <button mat-button color="primary" class="align-right" type="button"
                         (click)="switchToRegister()">Register</button>
                 </form>
+                <div *ngIf="loginFailed" class="alert alert-danger popup" role="alert">
+                    Password or username is incorrect. 
+                </div>
             </div>
         </div>
     </div>

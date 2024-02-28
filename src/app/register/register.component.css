@@ -12,3 +12,8 @@
 input.ng-touched.ng-invalid {
     border: 1px solid red;
 }
+
+.popup {
+    margin-top: 0.5rem;
+    text-align: center;
+}
