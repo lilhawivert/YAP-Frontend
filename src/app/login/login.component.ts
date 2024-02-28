@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
+import { RootService } from '../root.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +9,7 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent {
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private rootService: RootService) {}
 
   applyForm = new FormGroup({
     username: new FormControl(""),
@@ -20,6 +21,10 @@ export class LoginComponent {
       this.applyForm.value.username ?? "",
       this.applyForm.value.password ?? ""
     )
+  }
+
+  switchToRegister() {
+    this.rootService.showingRegister = true;
   }
 
 }

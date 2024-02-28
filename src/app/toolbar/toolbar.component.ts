@@ -11,7 +11,7 @@ export class ToolbarComponent {
   constructor(public userService: UserService) {}
 
   onLogoutClick(): void {
-    console.log("clicked")
+    this.userService.userLoggedIn = false;
   }
 
 }

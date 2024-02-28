@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './user.service';
+import { RootService } from './root.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { UserService } from './user.service';
 export class AppComponent {
   title = 'frontend';
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, public rootService: RootService) {}
 
   ngOnInit() {
 

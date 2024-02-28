@@ -1,2 +1,3 @@
 <app-toolbar *ngIf="userService.userLoggedIn"></app-toolbar>
-<app-login *ngIf="!userService.userLoggedIn"></app-login>
+<app-login *ngIf="!userService.userLoggedIn && !rootService.showingRegister"></app-login>
+<app-register *ngIf="!userService.userLoggedIn && rootService.showingRegister"></app-register>

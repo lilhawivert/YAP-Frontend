@@ -11,8 +11,16 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  register(): void {
-
+  register(username: string, password: string): void {
+    this.http.post("http://localhost:8080/register", {username: username, password: password}).subscribe((response) => {
+      if(response) {
+        this.username = username;
+        this.userLoggedIn = true;
+      }
+      else {
+        console.log("Unknown Error")
+      }
+    })
   }
 
   login(username: string, password: string): void {
