@@ -8,6 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MainComponent } from './main/main.component';
 import { YapsComponent } from './main/yaps/yaps.component';
+import { YapComponent } from './yap/yap.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { YapsComponent } from './main/yaps/yaps.component';
     LoginComponent,
     NotfoundComponent,
     MainComponent,
-    YapsComponent
+    YapsComponent,
+    YapComponent
   ],
   imports: [
     BrowserModule,
@@ -33,12 +36,14 @@ import { YapsComponent } from './main/yaps/yaps.component';
     MatButtonModule,
     FormsModule,
     MatCardModule,
+    MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
       {path: "", component: MainComponent},
       {path: "register", component: RegisterComponent},
       {path: "login", component: LoginComponent},
+      {path: "yap/:id", component: YapComponent},
       {path: "**", component: NotfoundComponent}
     ])
   ],

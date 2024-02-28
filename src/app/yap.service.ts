@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export interface Yap {
   username: string,
   message: string,
+  id?: string
 }
 
 @Injectable({
@@ -21,6 +22,10 @@ export class YapService {
     this.http.get<Yap[]>(this.url+"yap").subscribe((val: Yap[]) => {
       this.loadedYaps = val;
     })
+  }
+
+  getYap(id: string) {
+    return this.http.get<Yap>(this.url+"yap/"+id);
   }
 
   yapAway(yap: Yap) {

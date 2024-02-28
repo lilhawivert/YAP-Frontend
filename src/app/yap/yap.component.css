@@ -59,3 +59,14 @@ input.ng-touched.ng-invalid {
     font-weight: bold;
     margin-bottom: 8px; /* Adjust margin as needed */
   }
+
+  .container {
+    display: flex;
+    align-items: start;
+    padding-left: 0;
+  /* justify-content: left; */
+  }
+  .container mat-icon {
+    /* Additional styles for mat-icon if needed */
+    /* margin-right: 1px;  */
+  }

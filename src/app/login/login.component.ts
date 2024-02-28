@@ -30,7 +30,7 @@ export class LoginComponent {
     this.loginFailed = true;
     setTimeout(() => {
       this.loginFailed = false;
-    }, 3000)
+    }, 5000)
   });
   }
 
