@@ -8,17 +8,23 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     provideAnimationsAsync()
