@@ -23,7 +23,7 @@ export class YapsComponent {
       this.yapService.loadedYaps = val;
     }, () => {
       this.loading = false;
-      this.router.navigate(["/down"])
+      // this.router.navigate(["/down"])
     });
   }
 
