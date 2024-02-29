@@ -45,7 +45,8 @@
                             </div>
                             <div class="text-content">
                               <div class="title">
-                                <b>{{comment.username}}</b>
+                                <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
+                                <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
                               </div>
                               <div class="description">
                                 {{comment.message}}
@@ -58,7 +59,8 @@
                             </div>
                             <div class="text-content">
                               <div class="title">
-                                <b>{{comment.username}}</b>
+                                <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
+                                <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
                               </div>
                               <div class="description">
                                 {{comment.message}}

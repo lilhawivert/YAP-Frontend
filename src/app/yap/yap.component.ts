@@ -32,6 +32,10 @@ export class YapComponent {
       
   }
 
+  public get getUsername(): string | null {
+    return localStorage.getItem("username")
+  }
+
   onClickReply(): void {
     this.showReplyTextArea = !this.showReplyTextArea;
   }
