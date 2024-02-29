@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { YapService } from '../../yap.service';
+import { Yap, YapService } from '../../yap.service';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
 
@@ -13,11 +13,18 @@ export class YapsComponent {
   @ViewChild('yapTextArea') textareaInput!: ElementRef;
   @ViewChild('fileInput') fileInput!: any;
   public selectedFile: File | undefined;
-
+  public loading: boolean = false;
   constructor(public yapService: YapService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-    this.yapService.getYaps();
+    this.loading = true;
+    this.yapService.getYaps().subscribe((val: Yap[]) => {
+      this.loading = false;
+      this.yapService.loadedYaps = val;
+    }, () => {
+      this.loading = false;
+      this.router.navigate(["/down"])
+    });
   }
 
   onClickSpecificYap(index: number) {

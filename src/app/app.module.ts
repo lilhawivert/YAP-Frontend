@@ -8,6 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
@@ -18,6 +19,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { MainComponent } from './main/main.component';
 import { YapsComponent } from './main/yaps/yaps.component';
 import { YapComponent } from './yap/yap.component';
+import { DownComponent } from './down/down.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { YapComponent } from './yap/yap.component';
     NotfoundComponent,
     MainComponent,
     YapsComponent,
-    YapComponent
+    YapComponent,
+    DownComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { YapComponent } from './yap/yap.component';
     FormsModule,
     MatCardModule,
     MatIconModule,
+    MatProgressSpinner,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
@@ -44,6 +48,7 @@ import { YapComponent } from './yap/yap.component';
       {path: "register", component: RegisterComponent},
       {path: "login", component: LoginComponent},
       {path: "yap/:id", component: YapComponent},
+      {path: "down", component: DownComponent},
       {path: "**", component: NotfoundComponent}
     ])
   ],

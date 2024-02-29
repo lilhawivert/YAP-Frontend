@@ -30,9 +30,7 @@ export class YapService {
   public loadedYaps: Yap[] = [];
 
   getYaps() {
-    this.http.get<Yap[]>(this.url+"yap").subscribe((val: Yap[]) => {
-      this.loadedYaps = val;
-    })
+    return this.http.get<Yap[]>(this.url+"yap");
   }
 
   getYap(id: string) {

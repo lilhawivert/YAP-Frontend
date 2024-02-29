@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Yap, YapService } from '../yap.service';
 
 @Component({
@@ -10,16 +10,22 @@ import { Yap, YapService } from '../yap.service';
 export class YapComponent {
   @ViewChild('commentTextArea') textareaInput!: ElementRef;
 
-  constructor(private yapService: YapService, public activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, private yapService: YapService, public activatedRoute: ActivatedRoute) {}
 
   public yap: Yap = {username: "", message: ""};
   public yapComments: Comment[] | undefined;
   public showReplyTextArea: boolean = false;
+  public loading: boolean = false;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(s => {
+      this.loading = true;
       this.yapService.getYap(s["id"]).subscribe((yapResponse: Yap) => {
         this.yap = yapResponse;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
+        this.router.navigate(["/down"])
       })
     });
       

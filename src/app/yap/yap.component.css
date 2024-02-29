@@ -67,6 +67,11 @@ input.ng-touched.ng-invalid {
   /* justify-content: left; */
   }
   .container mat-icon {
-    /* Additional styles for mat-icon if needed */
-    /* margin-right: 1px;  */
+  }
+
+  .center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }

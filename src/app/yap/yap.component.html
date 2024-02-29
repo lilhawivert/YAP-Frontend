@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
-
+<ng-container *ngIf="loading">
+  <mat-spinner class="center"></mat-spinner>
+</ng-container>
+<ng-container *ngIf="!loading">
 <body style="height: 100vh">
     <div class="container h-100 w-100 align-items-top justify-content-center d-flex">
         <div class="row w-100 d-flex justify-content-center">
@@ -69,4 +72,5 @@
     
 
 </body>
+</ng-container>
 </html>
