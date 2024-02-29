@@ -1,9 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+export interface Comment {
+  id?: string,
+  username: string,
+  message: string,
+  new?: boolean,
+  likes: number,
+  yap?: Yap
+}
+
 export interface Yap {
   username: string,
   message: string,
+  likes?: number,
+  comments?: Comment[],
   id?: string
 }
 
@@ -30,6 +41,14 @@ export class YapService {
 
   yapAway(yap: Yap) {
     return this.http.post(this.url+"yap", yap, { headers: this.headers });
+  }
+
+  postComment(username: string | null, message: string, yap: Yap) {
+    this.http.post(this.url+"yap/"+yap.id+"/comment", {yap: yap, username: username, message: message}).subscribe();
+  }
+
+  getComments(yap: Yap) {
+    this.http.get<Yap[]>(this.url+"yap/"+yap.id+"/comment")
   }
 
 }

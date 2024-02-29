@@ -31,12 +31,15 @@
                         formControlName="password">
                         <span style="color: red" *ngIf="!applyForm.get('password')?.valid && applyForm.get('password')?.touched">Please enter a valid password</span>
                     </div>
-                    <button mat-raised-button color="primary" type="submit" [disabled]="form.form.invalid">Login</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="form.form.invalid || disableLoginButton">Login</button>
                     <button mat-button color="primary" class="align-right" type="button"
                         (click)="switchToRegister()">Register</button>
                 </form>
                 <div *ngIf="loginFailed" class="alert alert-danger popup" role="alert">
                     Password or username is incorrect. 
+                </div>
+                <div *ngIf="disableLoginButton" class="alert alert-danger popup" role="alert">
+                    Bro gotta chill.  
                 </div>
             </div>
         </div>

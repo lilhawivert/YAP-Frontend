@@ -22,23 +22,42 @@
                     </mat-card-content>
                     
                     <mat-card-content>
-                       <div class="container"> <mat-icon>favorite_border</mat-icon> <span>123</span></div>
+                       <div class="container"> <mat-icon (click)="onClickReply()" style="cursor: pointer;">reply</mat-icon> <mat-icon>favorite_border</mat-icon> <span>{{yap.likes ? yap.likes : 0}}</span> </div>
                     </mat-card-content>
                 </mat-card>
-                    <mat-card *ngFor="let item of [].constructor(10); let i = index">
-                        <!-- <img src="../../../assets/pfb.jpg" class="pfb">
-                        {{yapService.loadedYaps[i].username}}: {{yapService.loadedYaps[i].message}} -->
-
-                        <div class="card-content">
+              <mat-card>
+                <mat-card-header>
+                  
+                  <mat-card-content>
+                    <textarea [hidden]="!showReplyTextArea" cols="45" rows="3" placeholder="What is blud yapping about?" #commentTextArea></textarea>
+                    <mat-icon [hidden]="!showReplyTextArea" (click)="onClickCommentSend()" style="cursor: pointer;">send</mat-icon>
+                </mat-card-content>
+              </mat-card-header>
+              </mat-card>
+                    <mat-card *ngFor="let comment of yap.comments; let i = index">
+                        <div class="card-content" style="background-color: #e1f2f8;" *ngIf="comment.new">
                             <div class="image-container">
                               <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
                             </div>
                             <div class="text-content">
                               <div class="title">
-                                <b>{{yap.message}}</b>
+                                <b>{{comment.username}}</b>
                               </div>
                               <div class="description">
-                                comment
+                                {{comment.message}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-content" *ngIf="!comment.new">
+                            <div class="image-container">
+                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
+                            </div>
+                            <div class="text-content">
+                              <div class="title">
+                                <b>{{comment.username}}</b>
+                              </div>
+                              <div class="description">
+                                {{comment.message}}
                               </div>
                             </div>
                           </div>
