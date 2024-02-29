@@ -14,6 +14,7 @@ export class LoginComponent {
   loginFailed: boolean = false;
   loginFailedAnzahl: number = 0;
   disableLoginButton: boolean = false;
+  down: boolean = false;
 
   applyForm = new FormGroup({
     username: new FormControl("", Validators.required),
@@ -33,9 +34,12 @@ export class LoginComponent {
       this.userService.userLoggedIn = true;
       localStorage.setItem("username", this.userService.username || "");
       this.router.navigate(["/"])
-  }, () => {
-    this.loginFailed = true;
-    if(++this.loginFailedAnzahl >= 3) this.disableLoginButton = true;
+  }, (err: any) => {
+    if(err.status == 0) this.down = true;
+    else {
+      this.loginFailed = true;
+      if(++this.loginFailedAnzahl >= 3) this.disableLoginButton = true;
+    }
     setTimeout(() => {
       this.loginFailed = false;
     }, 5000)
