@@ -25,7 +25,7 @@ export class YapComponent {
         this.loading = false;
       }, () => {
         this.loading = false;
-        this.router.navigate(["/down"])
+        // this.router.navigate(["/down"])
       })
     });
       
