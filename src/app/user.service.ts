@@ -15,25 +15,10 @@ export class UserService {
 
   register(username: string, password: string): Observable<Object> {
     return this.http.post("http://localhost:8080/register", {username: username, password: password})
-    // .subscribe((response) => {
-    //   if(response) {
-    //     this.username = username;
-    //     this.userLoggedIn = true;
-    //     this.router.navigate(["/"])
-    //   }
-    //   else {
-    //     console.log("Unknown Error")
-    //   }
-    // })
   }
 
   login(username: string, password: string) {
     return this.http.post("http://localhost:8080/login", {username: username, password: password})
-    // .subscribe(() => {
-    //     this.username = username;
-    //     this.userLoggedIn = true;
-    //     this.router.navigate(["/"])
-    // });
   }
 
 }

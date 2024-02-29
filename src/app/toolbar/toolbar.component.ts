@@ -13,7 +13,12 @@ export class ToolbarComponent {
 
   onLogoutClick(): void {
     this.userService.userLoggedIn = false;
+    localStorage.removeItem("username");
     this.router.navigate(["/login"])
+  }
+
+  public get getUsername(): string | null {
+    return localStorage.getItem("username");
   }
 
   goToHomepage() {

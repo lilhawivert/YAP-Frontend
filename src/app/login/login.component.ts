@@ -18,6 +18,10 @@ export class LoginComponent {
     password: new FormControl("", Validators.required)
   })
 
+  ngOnInit() {
+    if(localStorage.getItem("username")) this.router.navigate(["/"]);
+  }
+
   submitForm() {
     this.userService.login(
       this.applyForm.value.username ?? "",
@@ -25,6 +29,7 @@ export class LoginComponent {
     ).subscribe(() => {
       this.userService.username = this.applyForm.value.username;
       this.userService.userLoggedIn = true;
+      localStorage.setItem("username", this.userService.username || "");
       this.router.navigate(["/"])
   }, () => {
     this.loginFailed = true;

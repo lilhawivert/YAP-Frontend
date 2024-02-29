@@ -20,6 +20,10 @@ export class RegisterComponent {
     password: new FormControl("", Validators.required)
   })
 
+  ngOnInit() {
+    if(localStorage.getItem("username")) this.router.navigate(["/"])
+  }
+
   submitForm() {
     this.userService.register(
       this.applyForm.value.username ?? "",

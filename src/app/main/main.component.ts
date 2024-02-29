@@ -12,7 +12,7 @@ export class MainComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) {}
 
   ngOnInit() {
-    if(!this.userService.userLoggedIn) this.router.navigate(["/login"])
+    if(!localStorage.getItem("username")) this.router.navigate(["/login"])
   }
 
 }
