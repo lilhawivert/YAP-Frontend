@@ -28,6 +28,7 @@ export class YapsComponent {
   }
 
   onClickSpecificYap(index: number) {
+    console.log(index);
     this.router.navigate([`yap/${this.yapService.loadedYaps[index].id}`]);
   }
 
