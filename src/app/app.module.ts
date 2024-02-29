@@ -31,7 +31,7 @@ import { DownComponent } from './down/down.component';
     MainComponent,
     YapsComponent,
     YapComponent,
-    DownComponent
+    DownComponent,
   ],
   imports: [
     BrowserModule,
