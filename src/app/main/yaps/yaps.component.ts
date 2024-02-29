@@ -33,8 +33,8 @@ export class YapsComponent {
   }
 
   onClickYap() {
-    this.yapService.yapAway({username: ""+this.userService.username, message: this.textareaInput.nativeElement.value}).subscribe(() => {
-      this.yapService.loadedYaps.unshift({username: ""+this.userService.username, message: this.textareaInput.nativeElement.value})
+    this.yapService.yapAway({username: ""+this.userService.username, message: this.textareaInput.nativeElement.value}).subscribe((receivedId: string) => {
+      this.yapService.loadedYaps.unshift({username: ""+this.userService.username, message: this.textareaInput.nativeElement.value, id: receivedId})
       this.textareaInput.nativeElement.value = "";
     }, () => {
       //on yap error

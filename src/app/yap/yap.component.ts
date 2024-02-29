@@ -16,11 +16,12 @@ export class YapComponent {
   public yapComments: Comment[] | undefined;
   public showReplyTextArea: boolean = false;
   public loading: boolean = false;
+  // public yapLiked: boolean = false;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(s => {
       this.loading = true;
-      this.yapService.getYap(s["id"]).subscribe((yapResponse: Yap) => {
+      this.yapService.getYap(s["id"], localStorage.getItem("username")).subscribe((yapResponse: Yap) => {
         this.yap = yapResponse;
         this.loading = false;
       }, () => {
@@ -35,9 +36,20 @@ export class YapComponent {
     this.showReplyTextArea = !this.showReplyTextArea;
   }
 
+  onClickHeartYap(): void {
+    this.yapService.likeYap(this.yap.id, localStorage.getItem("username")).subscribe(() => {
+      this.yap.liked = !this.yap.liked;
+      if(!this.yap.liked) this.yap.likes!--;
+      else if(this.yap.liked) this.yap.likes!++;
+    }, () => {
+
+    })
+  }
+
   onClickCommentSend(): void {
     this.yapService.postComment(localStorage.getItem("username"), this.textareaInput.nativeElement.value, this.yap);
     this.yap.comments?.unshift({username: localStorage.getItem("username") || "", message: this.textareaInput.nativeElement.value, likes: 0, new: true})
+    this.textareaInput.nativeElement.value = "";
     this.showReplyTextArea = !this.showReplyTextArea;
   }
 
