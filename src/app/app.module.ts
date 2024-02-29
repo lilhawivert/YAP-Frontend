@@ -48,7 +48,6 @@ import { DownComponent } from './down/down.component';
       {path: "register", component: RegisterComponent},
       {path: "login", component: LoginComponent},
       {path: "yap/:id", component: YapComponent},
-      {path: "down", component: DownComponent},
       {path: "**", component: NotfoundComponent}
     ])
   ],

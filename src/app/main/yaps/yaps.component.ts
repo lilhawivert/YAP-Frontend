@@ -14,6 +14,7 @@ export class YapsComponent {
   @ViewChild('fileInput') fileInput!: any;
   public selectedFile: File | undefined;
   public loading: boolean = false;
+  public down: boolean = false;
   constructor(public yapService: YapService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class YapsComponent {
       this.yapService.loadedYaps = val;
     }, () => {
       this.loading = false;
+      this.down = true;
       // this.router.navigate(["/down"])
     });
   }

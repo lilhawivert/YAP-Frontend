@@ -11,7 +11,8 @@
 <ng-container *ngIf="loading">
   <mat-spinner class="center"></mat-spinner>
 </ng-container>
-<ng-container *ngIf="!loading">
+<app-down *ngIf="down"></app-down>
+<ng-container *ngIf="!loading && !down">
 <body style="height: 100vh">
     <div class="container h-100 w-100 align-items-top justify-content-center d-flex">
         <div class="row w-100 d-flex justify-content-center">

@@ -13,7 +13,6 @@ export class MainComponent implements OnInit {
 
   ngOnInit() { 
     if(!localStorage.getItem("username")) this.router.navigate(["/login"])
-    console.log(localStorage.getItem("username"))
   }
 
 }

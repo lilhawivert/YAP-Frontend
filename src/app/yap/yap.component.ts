@@ -16,6 +16,7 @@ export class YapComponent {
   public yapComments: Comment[] | undefined;
   public showReplyTextArea: boolean = false;
   public loading: boolean = false;
+  public down: boolean = false;
   // public yapLiked: boolean = false;
 
   ngOnInit() {
@@ -26,7 +27,7 @@ export class YapComponent {
         this.loading = false;
       }, () => {
         this.loading = false;
-        // this.router.navigate(["/down"])
+        this.down = true;
       })
     });
       
