@@ -11,7 +11,7 @@ export interface Comment {
 }
 
 export interface Yap {
-  username: string,
+  username: string | null,
   message: string,
   likes?: number,
   liked?: boolean,
