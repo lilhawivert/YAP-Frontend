@@ -17,8 +17,8 @@
         *ngIf="!comment.liked" (click)="onClickHeartComment()"
         style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{comment.likes ?
         comment.likes : 0}}</span> 
-      <!-- <mat-icon *ngIf="comment.username==getUsername && !comment.deleted" (click)="deleteOwnComment()" -->
-      <!-- style="cursor: pointer; color: red">delete_outline</mat-icon>   -->
+      <mat-icon *ngIf="comment.username==getUsername && !comment.deleted" (click)="deleteOwnComment()"
+      style="cursor: pointer; color: red">delete_outline</mat-icon>  
       </div>
   </div>
 </div>

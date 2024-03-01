@@ -82,10 +82,13 @@ export class YapComponent {
   }
 
   onClickCommentSend(): void {
-    this.yapService.postComment(localStorage.getItem("username"), this.textareaInput.nativeElement.value, this.yap);
-    this.yap.comments?.unshift({username: localStorage.getItem("username") || "", message: this.textareaInput.nativeElement.value, likes: 0, new: true})
-    this.textareaInput.nativeElement.value = "";
-    this.showReplyTextArea = !this.showReplyTextArea;
+    this.loading = true;
+    let text = this.textareaInput.nativeElement.value;
+    this.yapService.postComment(localStorage.getItem("username"), text, this.yap).subscribe((commentId: string) => {
+      this.loading = false;
+      this.yap.comments?.unshift({username: localStorage.getItem("username") || "", message: text, likes: 0, new: true, id: commentId})
+      this.showReplyTextArea = !this.showReplyTextArea;
+    }, () => this.loading=false)
   }
 
   deleteComment(event: Comment) {

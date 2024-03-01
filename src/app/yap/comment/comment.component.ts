@@ -30,9 +30,10 @@ export class CommentComponent {
 
   public onClickReplySend() {
     const msg = `@${this.comment.username} `+this.textareaInput.nativeElement.value;
-    this.yapService.postComment(this.getUsername, msg, this.yap)
-    this.newReplyEvent.emit({username: this.getUsername || "", message: msg, yap: this.yap})
-    this.showReplyTextArea = !this.showReplyTextArea;
+    this.yapService.postComment(this.getUsername, msg, this.yap).subscribe(commentId => {
+      this.newReplyEvent.emit({username: this.getUsername || "", message: msg, yap: this.yap, id: commentId})
+      this.showReplyTextArea = !this.showReplyTextArea;
+    })
   }
 
   public onClickHeartComment() {

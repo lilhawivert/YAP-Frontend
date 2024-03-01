@@ -54,7 +54,7 @@ export class YapService {
   }
 
   postComment(username: string | null, message: string, yap: Yap) {
-    this.http.post(this.url+"yap/"+yap.id+"/comment", {yap: yap, username: username, message: message}).subscribe();
+    return this.http.post<string>(this.url+"yap/"+yap.id+"/comment", {yap: yap, username: username, message: message});
   }
 
   getComments(yap: Yap) {
