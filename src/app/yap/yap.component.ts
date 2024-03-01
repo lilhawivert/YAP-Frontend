@@ -33,6 +33,13 @@ export class YapComponent {
       
   }
 
+  likeComment(comment: Comment) {
+    let cmn = this.yap.comments!.filter(cmt => cmt.message==comment.message && cmt.username==cmt.username)[0];
+    cmn.liked = !cmn.liked;
+    if(cmn.liked) cmn.likes!++;
+    else if(!cmn.liked) cmn.likes!--;
+  }
+
   addNewComment(comment: Comment) {
     comment.new = true;
     this.yap.comments?.push(comment)

@@ -14,6 +14,7 @@ export class CommentComponent {
 
   @Output() newReplyEvent = new EventEmitter<Comment>();
   @Output() deleteEvent = new EventEmitter<Comment>();
+  @Output() likeCommentEvent = new EventEmitter<Comment>();
 
   public showReplyTextArea: boolean = false;
 
@@ -34,7 +35,16 @@ export class CommentComponent {
     this.showReplyTextArea = !this.showReplyTextArea;
   }
 
-  public onClickHeartComment() {}
+  public onClickHeartComment() {
+    this.yapService.likeComment(this.yap, this.comment.id, localStorage.getItem("username")).subscribe(() => {
+      // this.yap.liked = !this.yap.liked;
+      // if(!this.yap.liked) this.yap.likes!--;
+      // else if(this.yap.liked) this.yap.likes!++;
+      this.likeCommentEvent.emit(this.comment)
+    }, () => {
+
+    })
+  }
 
   public deleteOwnComment() {
     this.deleteEvent.emit(this.comment);

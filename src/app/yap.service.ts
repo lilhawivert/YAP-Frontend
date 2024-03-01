@@ -7,6 +7,7 @@ export interface Comment {
   message: string,
   new?: boolean,
   likes?: number,
+  liked?: boolean,
   deleted?: boolean,
   yap?: Yap
 }
@@ -57,8 +58,11 @@ export class YapService {
   }
 
   deleteComment(yap: Yap, commentId: string | undefined) {
-    console.log(this.url+"yap/"+yap.id+"/comment/"+commentId)
     return this.http.delete(this.url+"yap/"+yap.id+"/comment/"+commentId)
+  }
+
+  likeComment(yap: Yap, commentId: string | undefined, user: string | null) {
+    return this.http.post(this.url+"yap/"+yap.id+"/comment/"+commentId, user)
   }
 
 }
