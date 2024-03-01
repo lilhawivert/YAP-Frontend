@@ -72,6 +72,7 @@ export class YapComponent {
 
   deleteComment(event: Comment) {
     this.yapService.deleteComment(this.yap, event.id).subscribe(() => {
+      this.yap.comments!.filter(cmt => cmt.message==event.message && cmt.username==event.username)[0].deleted = true
       this.yap.comments!.filter(cmt => cmt.message==event.message && cmt.username==event.username)[0].message = "[deleted]"
     })
   }

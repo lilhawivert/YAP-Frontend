@@ -7,6 +7,7 @@ export interface Comment {
   message: string,
   new?: boolean,
   likes?: number,
+  deleted?: boolean,
   yap?: Yap
 }
 

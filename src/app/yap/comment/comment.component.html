@@ -17,7 +17,7 @@
         *ngIf="!yap.liked" (click)="onClickHeartComment()"
         style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{yap.likes ?
         yap.likes : 0}}</span> 
-      <mat-icon *ngIf="comment.username==getUsername" (click)="deleteOwnComment()"
+      <mat-icon *ngIf="comment.username==getUsername && !comment.deleted" (click)="deleteOwnComment()"
       style="cursor: pointer; color: red">delete_outline</mat-icon>  
       </div>
   </div>
@@ -43,7 +43,7 @@
       <mat-icon *ngIf="!yap.liked" (click)="onClickHeartComment()"
         style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{yap.likes ?
         yap.likes : 0}}</span>
-      <mat-icon *ngIf="comment.username==getUsername" (click)="deleteOwnComment()"
+      <mat-icon *ngIf="comment.username==getUsername && !comment.deleted" (click)="deleteOwnComment()"
         style="cursor: pointer; color: red">delete_outline</mat-icon>
     </div>
     <div><textarea [hidden]="!showReplyTextArea" cols="35" rows="3" #replyTextArea></textarea> <mat-icon
