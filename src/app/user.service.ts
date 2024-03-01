@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Yap } from './yap.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class UserService {
 
   login(username: string, password: string) {
     return this.http.post("http://localhost:8080/login", {username: username, password: password})
+  }
+
+  getYapsByUser(username: string) {
+    return this.http.get<Yap[]>("http://localhost:8080/yaps/"+username)
   }
 
 }
