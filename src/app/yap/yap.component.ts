@@ -34,6 +34,7 @@ export class YapComponent {
   }
 
   addNewComment(comment: Comment) {
+    comment.new = true;
     this.yap.comments?.push(comment)
   }
 
