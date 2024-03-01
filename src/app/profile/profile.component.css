@@ -1,0 +1,13 @@
+.center {
+    display: flex;
+    justify-content: center;
+    color: #226699;
+    font-size:xx-large;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  /* justify-content: left; */
+  }

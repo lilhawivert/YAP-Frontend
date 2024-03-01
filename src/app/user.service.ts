@@ -26,4 +26,13 @@ export class UserService {
     return this.http.get<Yap[]>("http://localhost:8080/yaps/"+username)
   }
 
+  follow(userWhoFollows: string | null, userWhosFollowed: string | null) {
+    return this.http.post<boolean>("http://localhost:8080/"+userWhosFollowed+"/follow", userWhoFollows);
+  }
+
+  isFollowed(userWhoFollows: string | null, userWhosFollowed: string | null) {
+    return this.http.get<boolean>("http://localhost:8080/"+userWhosFollowed+"/follow?userWhoFollows="+userWhoFollows);
+  }
+
+
 }
