@@ -49,6 +49,10 @@ export class YapService {
     return this.http.post<string>(this.url+"yap", yap, { headers: this.headers });
   }
 
+  deleteYap(yap: Yap) {
+    return this.http.delete(this.url+"yap/"+yap.id);
+  }
+
   postComment(username: string | null, message: string, yap: Yap) {
     this.http.post(this.url+"yap/"+yap.id+"/comment", {yap: yap, username: username, message: message}).subscribe();
   }

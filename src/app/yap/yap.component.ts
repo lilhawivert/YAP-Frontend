@@ -53,6 +53,16 @@ export class YapComponent {
     this.showReplyTextArea = !this.showReplyTextArea;
   }
 
+  onClickDeleteYap(): void {
+    this.loading = true;
+    this.yapService.deleteYap(this.yap).subscribe(() => {
+      this.loading = false;
+      this.router.navigate(["/"]);
+    }, () => {
+      this.loading = false;
+    });
+  }
+
   onClickHeartYap(): void {
     this.yapService.likeYap(this.yap.id, localStorage.getItem("username")).subscribe(() => {
       this.yap.liked = !this.yap.liked;

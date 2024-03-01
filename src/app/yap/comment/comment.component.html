@@ -46,7 +46,7 @@
       <mat-icon *ngIf="comment.username==getUsername && !comment.deleted" (click)="deleteOwnComment()"
         style="cursor: pointer; color: red">delete_outline</mat-icon>
     </div>
-    <div><textarea [hidden]="!showReplyTextArea" cols="35" rows="3" #replyTextArea></textarea> <mat-icon
+    <div><textarea [hidden]="!showReplyTextArea" cols="35" rows="3" #replyTextArea placeholder="What is blud yapping about?"></textarea> <mat-icon
         [hidden]="!showReplyTextArea" (click)="onClickReplySend()" style="cursor: pointer;">send</mat-icon></div>
   </div>
 </div>
