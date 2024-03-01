@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 export interface Comment {
   id?: string,
-  username?: string,
-  message?: string,
+  username: string,
+  message: string,
   new?: boolean,
   likes?: number,
   yap?: Yap
@@ -53,6 +53,11 @@ export class YapService {
 
   getComments(yap: Yap) {
     this.http.get<Yap[]>(this.url+"yap/"+yap.id+"/comment")
+  }
+
+  deleteComment(yap: Yap, commentId: string | undefined) {
+    console.log(this.url+"yap/"+yap.id+"/comment/"+commentId)
+    return this.http.delete(this.url+"yap/"+yap.id+"/comment/"+commentId)
   }
 
 }

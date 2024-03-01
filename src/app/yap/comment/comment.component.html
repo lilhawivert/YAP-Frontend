@@ -1,28 +1,52 @@
 <div class="card-content" style="background-color: #e1f2f8;" *ngIf="comment.new">
-                            <div class="image-container">
-                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                            </div>
-                            <div class="text-content">
-                              <div class="title">
-                                <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
-                                <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
-                              </div>
-                              <div class="description">
-                                {{comment.message}}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card-content" *ngIf="!comment.new">
-                            <div class="image-container">
-                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                            </div>
-                            <div class="text-content">
-                              <div class="title">
-                                <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
-                                <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
-                              </div>
-                              <div class="description">
-                                {{comment.message}}
-                              </div>
-                            </div>
-                          </div>
+  <div class="image-container">
+    <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
+  </div>
+  <div class="text-content">
+    <div class="title">
+      <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
+      <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
+      <span class="date">Sep 24</span>
+    </div>
+    <div class="description">
+      {{comment.message}}
+    </div>
+    <div class="container"> <mat-icon class="comment-icon" (click)="onClickReplyComment()"
+        style="cursor: pointer; color: #226699">reply</mat-icon> <mat-icon *ngIf="yap.liked"
+        (click)="onClickHeartComment()" style="cursor: pointer; color: #226699">favorite</mat-icon> <mat-icon
+        *ngIf="!yap.liked" (click)="onClickHeartComment()"
+        style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{yap.likes ?
+        yap.likes : 0}}</span> 
+      <mat-icon *ngIf="comment.username==getUsername" (click)="deleteOwnComment()"
+      style="cursor: pointer; color: red">delete_outline</mat-icon>  
+      </div>
+  </div>
+</div>
+<div class="card-content" *ngIf="!comment.new">
+  <div class="image-container">
+    <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
+  </div>
+  <div class="text-content">
+    <div class="title">
+      <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
+      <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
+      <span class="date">Sep 24</span>
+    </div>
+    <div class="description">
+      {{comment.message}}
+    </div>
+    <div class="container">
+      <mat-icon class="comment-icon" (click)="onClickReplyComment()"
+        style="cursor: pointer; color: #226699">reply</mat-icon>
+      <mat-icon *ngIf="yap.liked" (click)="onClickHeartComment()"
+        style="cursor: pointer; color: #226699">favorite</mat-icon>
+      <mat-icon *ngIf="!yap.liked" (click)="onClickHeartComment()"
+        style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{yap.likes ?
+        yap.likes : 0}}</span>
+      <mat-icon *ngIf="comment.username==getUsername" (click)="deleteOwnComment()"
+        style="cursor: pointer; color: red">delete_outline</mat-icon>
+    </div>
+    <div><textarea [hidden]="!showReplyTextArea" cols="35" rows="3" #replyTextArea></textarea> <mat-icon
+        [hidden]="!showReplyTextArea" (click)="onClickReplySend()" style="cursor: pointer;">send</mat-icon></div>
+  </div>
+</div>
