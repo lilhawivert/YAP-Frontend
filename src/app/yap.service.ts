@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 
 export interface Comment {
   id?: string,
-  username: string,
-  message: string,
+  username?: string,
+  message?: string,
   new?: boolean,
-  likes: number,
+  likes?: number,
   yap?: Yap
 }
 

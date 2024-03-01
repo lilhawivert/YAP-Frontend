@@ -29,6 +29,10 @@ export class YapsComponent {
     });
   }
 
+  public get getUsername(): string | null {
+    return localStorage.getItem("username");
+  }
+
   onClickSpecificYap(index: number) {
     console.log(index);
     this.router.navigate([`yap/${this.yapService.loadedYaps[index].id}`]);

@@ -20,6 +20,7 @@ import { MainComponent } from './main/main.component';
 import { YapsComponent } from './main/yaps/yaps.component';
 import { YapComponent } from './yap/yap.component';
 import { DownComponent } from './down/down.component';
+import { CommentComponent } from './yap/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DownComponent } from './down/down.component';
     YapsComponent,
     YapComponent,
     DownComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

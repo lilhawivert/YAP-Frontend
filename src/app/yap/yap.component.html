@@ -40,35 +40,7 @@
               </mat-card-header>
               </mat-card>
                     <mat-card *ngFor="let comment of yap.comments; let i = index">
-                        <div class="card-content" style="background-color: #e1f2f8;" *ngIf="comment.new">
-                            <div class="image-container">
-                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                            </div>
-                            <div class="text-content">
-                              <div class="title">
-                                <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
-                                <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
-                              </div>
-                              <div class="description">
-                                {{comment.message}}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card-content" *ngIf="!comment.new">
-                            <div class="image-container">
-                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                            </div>
-                            <div class="text-content">
-                              <div class="title">
-                                <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
-                                <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
-                              </div>
-                              <div class="description">
-                                {{comment.message}}
-                              </div>
-                            </div>
-                          </div>
-
+                      <app-comment [comment]="comment"></app-comment>
                     </mat-card>
             </div>
         </div>

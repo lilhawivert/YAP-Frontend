@@ -46,7 +46,8 @@
                             </div>
                             <div class="text-content">
                               <div class="title">
-                                <b>{{yapService.loadedYaps[i].username}}</b>
+                                <b *ngIf="yapService.loadedYaps[i].username == getUsername" style="color: #226699">{{yapService.loadedYaps[i].username}}</b>
+                                <b *ngIf="yapService.loadedYaps[i].username != getUsername">{{yapService.loadedYaps[i].username}}</b>
                               </div>
                               <div class="description">
                                 {{yapService.loadedYaps[i].message}}
