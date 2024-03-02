@@ -27,6 +27,10 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  public get notMe(): boolean {
+    return this.username !== localStorage.getItem("username");
+  }
+
   onClickDM() {
 
   }

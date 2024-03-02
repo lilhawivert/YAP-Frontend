@@ -7,9 +7,9 @@
                 <div class="container"> 
                     <mat-icon class="comment-icon" (click)="onClickDM()"
                     style="cursor: pointer; color: #226699">local_post_office</mat-icon> 
-                    <mat-icon (click)="onClickFollow()" *ngIf="!showFollowedCheck"
+                    <mat-icon (click)="onClickFollow()" *ngIf="!showFollowedCheck && notMe"
                     style="cursor: pointer; color: #226699">add</mat-icon> 
-                    <mat-icon (click)="onClickFollow()" *ngIf="showFollowedCheck"
+                    <mat-icon (click)="onClickFollow()" *ngIf="showFollowedCheck && notMe"
                     style="cursor: pointer; color: green">check</mat-icon> 
                   </div>
                 <app-yaps></app-yaps>

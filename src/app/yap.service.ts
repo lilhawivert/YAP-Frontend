@@ -33,8 +33,8 @@ export class YapService {
   private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   public loadedYaps: Yap[] = [];
 
-  getYaps() {
-    return this.http.get<Yap[]>(this.url+"yap");
+  getYaps(username: string | null) {
+    return this.http.post<Yap[]>(this.url+"yaps", username, { headers: this.headers });
   }
 
   getYap(id: string, username: string | null) {

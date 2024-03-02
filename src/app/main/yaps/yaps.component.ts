@@ -33,9 +33,9 @@ export class YapsComponent {
       })
     }
 
-    else { this.yapService.getYaps().subscribe((val: Yap[]) => {
+    else { this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
       this.loading = false;
-      this.yapService.loadedYaps = val;
+      if(val.length > 0) this.yapService.loadedYaps = val;
     }, () => {
       this.loading = false;
       this.down = true;
