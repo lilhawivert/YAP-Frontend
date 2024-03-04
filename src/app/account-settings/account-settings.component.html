@@ -1,0 +1,30 @@
+<div class="all">
+    <h1>account-settings</h1>
+
+    <div>
+      <h2>Profile Picture</h2>
+      <input type="file" id="fileInput" (change)="uploadImage()" accept=".png, .jped, .jpg">
+      <img *ngIf="!changingPicture" [src]="imageUrl" class="profilePic">
+      <img *ngIf="changingPicture" [src]="newImageUrl" class="profilePic">
+      <button *ngIf="changingPicture" (click)="notChangePic()" >reset Picture</button>
+    </div>
+
+    <div>
+      <h2>User Name</h2>
+      <p>Username: {{ userName }}</p>
+      <button (click)="changeName()">{{ changingName ? 'Not Change' : 'Change' }}</button>
+      <input *ngIf="changingName" (input)="handleUserNameChange($event)" type="text" name="username" >
+      <label *ngIf="changingName && userExists" style="color:red"> {{ isAvailableText }} </label>
+      <label *ngIf="changingName && !userExists" style="color:green"> {{ isAvailableText }} </label>
+    </div>
+
+    <div>
+      <h2>password</h2>
+      <button (click)="changePassword()">{{ changingPassword ? 'Not Change' : 'Change' }}</button>
+      <input *ngIf="changingPassword" (input)="handlePasswordChange($event)" type="text" name="password" >
+    </div>
+
+  <button (click)="cancelAllChanges()" >Cancel</button>
+  <button (click)="safeAllChanges()" >Safe</button>
+
+</div>

@@ -20,6 +20,8 @@ import { MainComponent } from './main/main.component';
 import { YapsComponent } from './main/yaps/yaps.component';
 import { YapComponent } from './yap/yap.component';
 import { DownComponent } from './down/down.component';
+import { SidebarComponent } from './main/sidebar/sidebar.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { DownComponent } from './down/down.component';
     YapsComponent,
     YapComponent,
     DownComponent,
+    SidebarComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,7 @@ import { DownComponent } from './down/down.component';
       {path: "login", component: LoginComponent},
       {path: "yap/:id", component: YapComponent},
       {path: "down", component: DownComponent},
+      {path: "accountSettings", component: AccountSettingsComponent},
       {path: "**", component: NotfoundComponent}
     ])
   ],
