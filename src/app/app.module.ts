@@ -20,6 +20,8 @@ import { MainComponent } from './main/main.component';
 import { YapsComponent } from './main/yaps/yaps.component';
 import { YapComponent } from './yap/yap.component';
 import { DownComponent } from './down/down.component';
+import { SidebarComponent } from './main/sidebar/sidebar.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { CommentComponent } from './yap/comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -34,6 +36,8 @@ import { ProfileComponent } from './profile/profile.component';
     YapsComponent,
     YapComponent,
     DownComponent,
+    SidebarComponent,
+    AccountSettingsComponent,
     CommentComponent,
     ProfileComponent,
   ],
@@ -52,6 +56,8 @@ import { ProfileComponent } from './profile/profile.component';
       {path: "register", component: RegisterComponent},
       {path: "login", component: LoginComponent},
       {path: "yap/:id", component: YapComponent},
+      {path: "down", component: DownComponent},
+      {path: "accountSettings", component: AccountSettingsComponent},
       {path: ":profile", component: ProfileComponent},
       {path: "**", component: NotfoundComponent}
     ])
