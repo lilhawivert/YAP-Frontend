@@ -14,6 +14,7 @@ export class RegisterComponent {
 
   registerSuccessful: boolean = false;
   registerFailed: boolean = false;
+  down: boolean = false;
 
   applyForm = new FormGroup({
     username: new FormControl("", Validators.required),
@@ -35,8 +36,9 @@ export class RegisterComponent {
         setTimeout(() => {
           this.router.navigate(["/"])
         }, 2000)
-    }, () => {
-      this.registerFailed = true;
+    }, (err) => {
+      if(err.status == 0) this.down = true;
+      else this.registerFailed = true;
       setTimeout(() => {
         this.registerFailed = false;
       }, 3000)

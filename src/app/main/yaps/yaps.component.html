@@ -10,13 +10,14 @@
 <ng-container *ngIf="loading">
   <mat-spinner class="center"></mat-spinner>
 </ng-container>
-<ng-container *ngIf="!loading">
+<app-down *ngIf="down"></app-down>
+<ng-container *ngIf="!loading && !down">
 
-  <body style="height: 100vh">
-    <div class="container h-100 w-100 align-items-top justify-content-center d-flex">
-      <div class="row w-100 d-flex justify-content-center">
-            <div class="col-12 col-md-6" style="height: 400px">
-              <mat-card>
+  <!-- <body style="height: 100vh"> -->
+    <!-- <div class="container h-100 w-100 align-items-top justify-content-center d-flex"> -->
+      <!-- <div class="row w-100 d-flex justify-content-center"> -->
+            <!-- <div class="col-12 col-md-6" style="height: 400px"> -->
+              <!-- <mat-card>
                 <mat-card-header>
                   <mat-card-title>Home</mat-card-title>
                     </mat-card-header>
@@ -34,8 +35,8 @@
                         </div>
                         
                       </mat-card-content>
-                </mat-card>
-                    <mat-card *ngFor="let item of [].constructor(getMaxYaps()); let i = index" (click)="onClickSpecificYap(i)" style="cursor: pointer;">
+                </mat-card> -->
+                    <mat-card *ngFor="let item of [].constructor(getMaxYaps()); let i = index">
                       <!-- <img src="../../../assets/pfb.jpg" class="pfb">
                         {{yapService.loadedYaps[i].username}}: {{yapService.loadedYaps[i].message}} -->
                         
@@ -45,21 +46,22 @@
                             </div>
                             <div class="text-content">
                               <div class="title">
-                                <b>{{yapService.loadedYaps[i].username}}</b>
+                                <b *ngIf="yapService.loadedYaps[i].username == getUsername" style="color: #226699; cursor: pointer;" (click)="onClickProfile(yapService.loadedYaps[i].username)">{{yapService.loadedYaps[i].username}}</b>
+                                <b *ngIf="yapService.loadedYaps[i].username != getUsername" style="cursor: pointer;" (click)="onClickProfile(yapService.loadedYaps[i].username)">{{yapService.loadedYaps[i].username}}</b>
                               </div>
-                              <div class="description">
+                              <div class="description" (click)="onClickSpecificYap(i)" style="cursor: pointer;">
                                 {{yapService.loadedYaps[i].message}}
                               </div>
                             </div>
                           </div>
 
                         </mat-card>
-                      </div>
-        </div>
-    </div>
+                      <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
     
     
-</body>
+<!-- </body> -->
 </ng-container>
 </html>
 

@@ -1,77 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
 </head>
 <app-toolbar></app-toolbar>
 <ng-container *ngIf="loading">
   <mat-spinner class="center"></mat-spinner>
 </ng-container>
-<ng-container *ngIf="!loading">
-<body style="height: 100vh">
+<app-down *ngIf="down"></app-down>
+<ng-container *ngIf="!loading && !down">
+
+  <body style="height: 100vh">
     <div class="container h-100 w-100 align-items-top justify-content-center d-flex">
-        <div class="row w-100 d-flex justify-content-center">
-            <div class="col-12 col-md-6" style="height: 400px">
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>{{yap.username}}</mat-card-title>
-                    </mat-card-header>
+      <div class="row w-100 d-flex justify-content-center">
+        <div class="col-12 col-md-6" style="height: 400px">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title *ngIf="getUsername===yap.username"
+                style="color: #226699">{{yap.username}}</mat-card-title>
+              <mat-card-title *ngIf="getUsername!==yap.username">{{yap.username}}</mat-card-title>
+            </mat-card-header>
 
-                    <mat-card-content>
-                        {{yap.message}}
-                    </mat-card-content>
-                    
-                    <mat-card-content>
-                       <div class="container"> <mat-icon (click)="onClickReply()" style="cursor: pointer;">reply</mat-icon> <mat-icon>favorite_border</mat-icon> <span>{{yap.likes ? yap.likes : 0}}</span> </div>
-                    </mat-card-content>
-                </mat-card>
-              <mat-card>
-                <mat-card-header>
-                  
-                  <mat-card-content>
-                    <textarea [hidden]="!showReplyTextArea" cols="45" rows="3" placeholder="What is blud yapping about?" #commentTextArea></textarea>
-                    <mat-icon [hidden]="!showReplyTextArea" (click)="onClickCommentSend()" style="cursor: pointer;">send</mat-icon>
-                </mat-card-content>
-              </mat-card-header>
-              </mat-card>
-                    <mat-card *ngFor="let comment of yap.comments; let i = index">
-                        <div class="card-content" style="background-color: #e1f2f8;" *ngIf="comment.new">
-                            <div class="image-container">
-                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                            </div>
-                            <div class="text-content">
-                              <div class="title">
-                                <b>{{comment.username}}</b>
-                              </div>
-                              <div class="description">
-                                {{comment.message}}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card-content" *ngIf="!comment.new">
-                            <div class="image-container">
-                              <img src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                            </div>
-                            <div class="text-content">
-                              <div class="title">
-                                <b>{{comment.username}}</b>
-                              </div>
-                              <div class="description">
-                                {{comment.message}}
-                              </div>
-                            </div>
-                          </div>
+            <mat-card-content>
+              {{yap.message}}
+            </mat-card-content>
 
-                    </mat-card>
-            </div>
+            <mat-card-content>
+              <div class="container"> <mat-icon class="comment-icon" (click)="onClickReply()"
+                  style="cursor: pointer; color: #226699">reply</mat-icon> <mat-icon *ngIf="yap.liked"
+                  (click)="onClickHeartYap()" style="cursor: pointer; color: #226699">favorite</mat-icon> <mat-icon
+                  *ngIf="!yap.liked" (click)="onClickHeartYap()"
+                  style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{yap.likes ? yap.likes :
+                  0}}</span> 
+                  <mat-icon style="color: red; cursor: pointer;" *ngIf="getUsername===yap.username" (click)="onClickDeleteYap()">delete_outline</mat-icon></div>
+            </mat-card-content>
+          </mat-card>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-content [hidden]="!showReplyTextArea">
+                <textarea [hidden]="!showReplyTextArea" cols="45" rows="3" placeholder="What is blud yapping about?"
+                  #commentTextArea></textarea>
+                <mat-icon [hidden]="!showReplyTextArea" (click)="onClickCommentSend()"
+                  style="cursor: pointer;">send</mat-icon>
+              </mat-card-content>
+            </mat-card-header>
+          </mat-card>
+          <mat-card *ngFor="let comment of yap.comments; let i = index">
+            <app-comment [comment]="comment" [yap]="yap" (newReplyEvent)="addNewComment($event)"
+              (deleteEvent)="deleteComment($event)" (likeCommentEvent)="likeComment($event)"></app-comment>
+          </mat-card>
         </div>
+      </div>
     </div>
-    
 
-</body>
+
+  </body>
 </ng-container>
+
 </html>

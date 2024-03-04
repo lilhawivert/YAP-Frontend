@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Yap } from './yap.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,18 @@ export class UserService {
     console.log("getting pp")
     return this.http.get<string>(this.url+"getProfilePicture/"+username);
   }
+
+  getYapsByUser(username: string) {
+    return this.http.get<Yap[]>("http://localhost:8080/yaps/"+username)
+  }
+
+  follow(userWhoFollows: string | null, userWhosFollowed: string | null) {
+    return this.http.post<boolean>("http://localhost:8080/"+userWhosFollowed+"/follow", userWhoFollows);
+  }
+
+  isFollowed(userWhoFollows: string | null, userWhosFollowed: string | null) {
+    return this.http.get<boolean>("http://localhost:8080/"+userWhosFollowed+"/follow?userWhoFollows="+userWhoFollows);
+  }
+
 
 }

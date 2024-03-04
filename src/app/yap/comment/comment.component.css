@@ -76,6 +76,12 @@ input.ng-touched.ng-invalid {
     transform: translate(-50%, -50%);
   }
 
+  .date {
+    margin-left: 0.5rem;
+    font-size: small;
+    color:gray;
+  }
+
   .comment-icon {
     margin-right: 3rem;
   }

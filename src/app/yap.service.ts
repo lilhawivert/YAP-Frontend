@@ -6,14 +6,17 @@ export interface Comment {
   username: string,
   message: string,
   new?: boolean,
-  likes: number,
+  likes?: number,
+  liked?: boolean,
+  deleted?: boolean,
   yap?: Yap
 }
 
 export interface Yap {
-  username: string,
+  username: string | null,
   message: string,
   likes?: number,
+  liked?: boolean,
   comments?: Comment[],
   id?: string
 }
@@ -22,6 +25,7 @@ export interface Yap {
   providedIn: 'root'
 })
 export class YapService {
+  
 
   constructor(private http: HttpClient) { }
 
@@ -29,24 +33,40 @@ export class YapService {
   private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   public loadedYaps: Yap[] = [];
 
-  getYaps() {
-    return this.http.get<Yap[]>(this.url+"yap");
+  getYaps(username: string | null) {
+    return this.http.post<Yap[]>(this.url+"yaps", username, { headers: this.headers });
   }
 
-  getYap(id: string) {
-    return this.http.get<Yap>(this.url+"yap/"+id);
+  getYap(id: string, username: string | null) {
+    return this.http.post<Yap>(this.url+"yap/"+id, username);
+  }
+
+  likeYap(id: string | undefined, user: string | null) {
+    return this.http.post(this.url+"yap/"+id+"/like", user);
   }
 
   yapAway(yap: Yap) {
-    return this.http.post(this.url+"yap", yap, { headers: this.headers });
+    return this.http.post<string>(this.url+"yap", yap, { headers: this.headers });
+  }
+
+  deleteYap(yap: Yap) {
+    return this.http.delete(this.url+"yap/"+yap.id);
   }
 
   postComment(username: string | null, message: string, yap: Yap) {
-    this.http.post(this.url+"yap/"+yap.id+"/comment", {yap: yap, username: username, message: message}).subscribe();
+    return this.http.post<string>(this.url+"yap/"+yap.id+"/comment", {yap: yap, username: username, message: message});
   }
 
   getComments(yap: Yap) {
     this.http.get<Yap[]>(this.url+"yap/"+yap.id+"/comment")
+  }
+
+  deleteComment(yap: Yap, commentId: string | undefined) {
+    return this.http.delete(this.url+"yap/"+yap.id+"/comment/"+commentId)
+  }
+
+  likeComment(yap: Yap, commentId: string | undefined, user: string | null) {
+    return this.http.post(this.url+"yap/"+yap.id+"/comment/"+commentId, user)
   }
 
 }
