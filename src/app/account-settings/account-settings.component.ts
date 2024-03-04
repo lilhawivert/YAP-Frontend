@@ -113,7 +113,7 @@ export class AccountSettingsComponent {
 
 
 
-  safeAllChanges(){
+  async safeAllChanges(){
     if(this.changingName && this.userExists){return;}
 
     if(this.changingPicture){
@@ -121,6 +121,7 @@ export class AccountSettingsComponent {
     }
 
     if(this.changingPassword){
+      await this.sleep(1000);
       this.userService.changePassword(this.userName  as string, this.newPassword as string).subscribe();
       this.userService.userLoggedIn = false;
       localStorage.removeItem("username");
@@ -128,6 +129,7 @@ export class AccountSettingsComponent {
     }
 
     if(this.changingName){
+      await this.sleep(1000);
       this.userService.changeUserName(this.userName  as string, this.newUsername as string).subscribe();
       this.userService.userLoggedIn = false;
       localStorage.removeItem("username");
@@ -143,5 +145,9 @@ export class AccountSettingsComponent {
     this.router.navigate(["/"]);
   }
 
+
+  sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 }
