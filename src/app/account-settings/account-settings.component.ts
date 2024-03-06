@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import {from} from "rxjs";
 
 
 @Component({
@@ -117,15 +118,15 @@ export class AccountSettingsComponent {
     if(this.changingName && this.userExists){return;}
 
     if(this.changingPicture){
-      this.userService.changeProfilePicture(this.userName as string, "\""+this.newImageUrl as string + "\"").subscribe();
+      this.userService.changeProfilePicture(this.userName as string, "\"" + this.newImageUrl + "\"" as string).subscribe();
     }
 
     if(this.changingPassword){
       await this.sleep(1000);
-      this.userService.changePassword(this.userName  as string, this.newPassword as string).subscribe();
+      this.userService.changePassword(this.userName as string, this.newPassword as string).subscribe();
       this.userService.userLoggedIn = false;
       localStorage.removeItem("username");
-      this.router.navigate(["/login"])
+      await this.router.navigate(["/login"])
     }
 
     if(this.changingName){
@@ -133,7 +134,7 @@ export class AccountSettingsComponent {
       this.userService.changeUserName(this.userName  as string, this.newUsername as string).subscribe();
       this.userService.userLoggedIn = false;
       localStorage.removeItem("username");
-      this.router.navigate(["/login"])
+      await this.router.navigate(["/login"])
     }
 
 

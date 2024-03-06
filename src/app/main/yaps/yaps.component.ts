@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Yap, YapService } from '../../yap.service';
-import { UserService } from '../../user.service';
+import {Yap, YapService} from '../../yap.service';
+import {User, UserService} from '../../user.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
@@ -19,6 +19,7 @@ export class YapsComponent {
   constructor(public yapService: YapService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+
     this.loading = true;
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.username = params.get('profile');
@@ -33,14 +34,36 @@ export class YapsComponent {
       })
     }
 
-    else { this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
-      this.loading = false;
-      if(val.length > 0) this.yapService.loadedYaps = val;
-    }, () => {
-      this.loading = false;
-      this.down = true;
-      // this.router.navigate(["/down"])
-    }); }
+    else {
+      this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
+
+        if(val.length > 0) {
+          this.yapService.loadedYaps = val;
+          this.yapService.usersOfYaps = [];
+          for (let i = 0; i < this.yapService.loadedYaps.length; i++) {
+            this.userService.getUserByUsername(this.yapService.loadedYaps[i].username!).subscribe((u:User) => {
+              this.yapService.usersOfYaps.push(u);
+              console.log(this.yapService.usersOfYaps.length+" "+i);
+              if(this.yapService.usersOfYaps.length==this.yapService.loadedYaps.length)this.loading = false;
+            });
+          }
+
+          console.log("test1");
+          console.log(this.yapService.loadedYaps);
+          console.log(this.yapService.usersOfYaps);
+          console.log(this.yapService.usersOfYaps.length);
+
+        }
+
+      }, () => {
+        this.loading = false;
+        this.down = true;
+        this.router.navigate(["/down"])
+      });
+
+
+
+    }
   }
 
   public get getUsername(): string | null {

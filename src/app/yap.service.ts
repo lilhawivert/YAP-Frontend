@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {User} from "./user.service";
 
 export interface Comment {
   id?: string,
@@ -25,13 +26,14 @@ export interface Yap {
   providedIn: 'root'
 })
 export class YapService {
-  
+
 
   constructor(private http: HttpClient) { }
 
   private url: string = "http://localhost:8080/";
   private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   public loadedYaps: Yap[] = [];
+  public usersOfYaps: User[] = [];
 
   getYaps(username: string | null) {
     return this.http.post<Yap[]>(this.url+"yaps", username, { headers: this.headers });
