@@ -1,0 +1,41 @@
+<app-toolbar></app-toolbar>
+
+<div>
+  <select id="myDropdown" (change)="handleDropdownChange($event)">
+    <option value="option1">Search by username</option>
+    <option value="option2">Search by user id</option>
+  </select>
+  <input  (input)="handleInputChange($event)" type="text" name="userInput" >
+  <button (click)="search()" >Search</button>
+</div>
+<div>
+
+  <div *ngIf="users.length == 0" > no user found</div>
+
+  <ng-container>
+
+    <mat-card *ngFor="let item of [].constructor(users.length); let i = index">
+      <div class="card-content">
+
+        <div class="username">
+          <b *ngIf="users[i].username == getUsername" style="color: #226699; cursor: pointer;" (click)="onClickProfile(users[i].username)">{{users[i].username}}</b>
+          <b *ngIf="users[i].username != getUsername" style="cursor: pointer;" (click)="onClickProfile(users[i].username)">{{users[i].username}}</b>
+        </div>
+
+        <div class="image-container">
+          <img *ngIf="!users[i].profilePic" src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
+          <img *ngIf="users[i].profilePic" [src]="users[i].profilePic" class="pfb" alt="Your Image">
+        </div>
+
+        <div class="userId">
+            <b>UserID: {{users[i].id}}</b>
+        </div>
+
+      </div>
+
+    </mat-card>
+
+  </ng-container>
+
+
+</div>

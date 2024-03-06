@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Yap, YapService } from '../../yap.service';
-import { UserService } from '../../user.service';
+import {Yap, YapService} from '../../yap.service';
+import {User, UserService} from '../../user.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
@@ -33,14 +33,27 @@ export class YapsComponent {
       })
     }
 
-    else { this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
-      this.loading = false;
-      if(val.length > 0) this.yapService.loadedYaps = val;
-    }, () => {
-      this.loading = false;
-      this.down = true;
-      // this.router.navigate(["/down"])
-    }); }
+    else {
+      this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
+        this.yapService.usersOfYaps = [];
+        console.log(val)
+        if(val.length > 0) {
+          this.yapService.loadedYaps = val;
+          this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
+            this.yapService.usersOfYaps = u;
+            this.loading = false;
+          })
+        }else {
+          this.loading = false
+        }
+
+      }, () => {
+        this.loading = false;
+        this.down = true;
+        this.router.navigate(["/down"])
+      });
+
+    }
   }
 
   public get getUsername(): string | null {

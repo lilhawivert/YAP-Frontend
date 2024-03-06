@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormControl, FormGroup, Validators, ɵFormGroupRawValue, ɵGetProperty, ɵTypedOrUntyped} from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
@@ -34,7 +34,7 @@ export class RegisterComponent {
         this.userService.userLoggedIn = true;
         this.registerSuccessful = true;
         setTimeout(() => {
-          this.router.navigate(["/"])
+          this.router.navigate(["/login"])
         }, 2000)
     }, (err) => {
       if(err.status == 0) this.down = true;
@@ -47,6 +47,16 @@ export class RegisterComponent {
 
   switchToLogin() {
     this.router.navigate(["/login"])
+  }
+
+  checkValidUsername(username: ɵGetProperty<ɵTypedOrUntyped<{
+    password: FormControl<string | null>;
+    username: FormControl<string | null>
+  }, ɵFormGroupRawValue<{
+    password: FormControl<string | null>;
+    username: FormControl<string | null>
+  }>, any>, "username"> | undefined): boolean{
+    return /^[a-zA-Z0-9]*$/.test(<string>username);
   }
 
 }

@@ -1,0 +1,9 @@
+.image-container img {
+  width: 65px;
+  height: auto;
+  height: auto;
+}
+
+.card-content{
+  height: 130px; /* Vollständige Höhe des Bildschirms verwenden */
+}

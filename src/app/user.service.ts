@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Yap } from './yap.service';
 
+export interface User {
+  id: string,
+  username: string,
+  password: string,
+  profilePic: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,26 +43,35 @@ export class UserService {
   }
 
   changeProfilePicture(username: string, newPicture: string){
-    console.log("changing Pic: "+username+" "+newPicture);
     return this.http.post(this.url+"changeProfilePicture/"+username, newPicture);
   }
 
-  getProfilePicture(username: string){
-    console.log("getting pp")
-    return this.http.get<string>(this.url+"getProfilePicture/"+username);
-  }
-
   getYapsByUser(username: string) {
-    return this.http.get<Yap[]>("http://localhost:8080/yaps/"+username)
+    return this.http.get<Yap[]>(this.url+"yaps/"+username)
   }
 
   follow(userWhoFollows: string | null, userWhosFollowed: string | null) {
-    return this.http.post<boolean>("http://localhost:8080/"+userWhosFollowed+"/follow", userWhoFollows);
+    return this.http.post<boolean>(this.url+userWhosFollowed+"/follow", userWhoFollows);
   }
 
   isFollowed(userWhoFollows: string | null, userWhosFollowed: string | null) {
-    return this.http.get<boolean>("http://localhost:8080/"+userWhosFollowed+"/follow?userWhoFollows="+userWhoFollows);
+    return this.http.get<boolean>(this.url+userWhosFollowed+"/follow?userWhoFollows="+userWhoFollows);
   }
 
+  getUserByUsername(username: string){
+    return this.http.get<User>(this.url+"getUser/"+username);
+  }
+
+  getUsersOfYaps(yaps: Yap[]){
+    return this.http.post<User[]>(this.url+"getUsersOfYaps",yaps);
+  }
+
+  getUserByUserID(userId: string){
+    return this.http.get<User>(this.url+"getUserById/"+userId);
+  }
+
+  getUsersByUsernamePartial(username: string){
+    return this.http.get<User[]>(this.url+"getUsersByUsernamePartial/"+username);
+  }
 
 }
