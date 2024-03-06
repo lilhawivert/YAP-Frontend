@@ -1,8 +1,71 @@
-
-
-.all{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.all {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
+.section {
+  margin-bottom: 20px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+.input-field {
+  padding: 8px;
+  margin-top: 8px;
+  width: calc(100% - 16px);
+}
+
+.profilePic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.action-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.reset-button {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.buttons {
+  text-align: right;
+}
+
+.cancel-button, .safe-button {
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.cancel-button:hover, .safe-button:hover {
+  background-color: #5a6268;
+}
+
+.image-container {
+  position: relative;
+}
+
+.reset-button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

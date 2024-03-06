@@ -19,29 +19,28 @@
                     <div class="form-group">
                       <label for="username">Username</label>
                       <input type="text" class="form-control" id="username" placeholder="Enter username" formControlName="username">
-                      <span style="color: red" *ngIf="!applyForm.get('username')?.valid && applyForm.get('username')?.touched">Please enter a valid password</span>
-                    </div>
+                      <span style="color: red" *ngIf="!checkValidUsername(applyForm.get('username')?.value) && applyForm.get('username')?.touched">Please enter a valid username</span>                    </div>
                     <div class="form-group">
                       <label for="password">Password</label>
                       <input type="password" class="form-control" id="password" placeholder="Enter password" formControlName="password">
                       <span style="color: red" *ngIf="!applyForm.get('password')?.valid && applyForm.get('password')?.touched">Please enter a valid password</span>
                     </div>
-                    <button mat-raised-button color="primary" type="submit" [disabled]="form.form.invalid">Register</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!checkValidUsername(applyForm.get('username')?.value) || form.form.invalid">Register</button>
                     <button mat-button color="primary" class="align-right" type="button" (click)="switchToLogin()">Login</button>
                 </form>
                 <div *ngIf="registerSuccessful" class="alert alert-success popup" role="alert">
                     Registration successful!
                 </div>
                 <div *ngIf="registerFailed" class="alert alert-danger popup" role="alert">
-                    The user already exists. 
+                    The user already exists.
                 </div>
                 <div *ngIf="down" class="alert alert-danger popup" role="alert">
-                    The server seems to be down. 
+                    The server seems to be down.
                 </div>
             </div>
         </div>
     </div>
-    
+
 
 </body>
 </html>

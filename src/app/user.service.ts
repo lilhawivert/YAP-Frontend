@@ -8,7 +8,7 @@ export interface User {
   id: string,
   username: string,
   password: string,
-  profilePic: number,
+  profilePic: string,
 }
 
 @Injectable({
@@ -46,10 +46,6 @@ export class UserService {
     return this.http.post(this.url+"changeProfilePicture/"+username, newPicture);
   }
 
-  getProfilePicture(username: string){
-    return this.http.get<string>(this.url+"getProfilePicture/"+username);
-  }
-
   getYapsByUser(username: string) {
     return this.http.get<Yap[]>(this.url+"yaps/"+username)
   }
@@ -68,6 +64,14 @@ export class UserService {
 
   getUsersOfYaps(yaps: Yap[]){
     return this.http.post<User[]>(this.url+"getUsersOfYaps",yaps);
+  }
+
+  getUserByUserID(userId: string){
+    return this.http.get<User>(this.url+"getUserById/"+userId);
+  }
+
+  getUsersByUsernamePartial(username: string){
+    return this.http.get<User[]>(this.url+"getUsersByUsernamePartial/"+username);
   }
 
 }

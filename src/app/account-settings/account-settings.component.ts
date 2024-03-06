@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { UserService } from '../user.service';
+import {User, UserService} from '../user.service';
 import { Router } from '@angular/router';
-import {NgxImageCompressService} from 'ngx-image-compress';
-import {from} from "rxjs";
 
 
 @Component({
@@ -12,10 +10,10 @@ import {from} from "rxjs";
 })
 export class AccountSettingsComponent {
 
-  constructor(private imageCompress: NgxImageCompressService, private router: Router, private userService: UserService) {
-    this.userService.getProfilePicture(this.userName).subscribe((picture: any) => {
-      console.log("da pic1"+picture);
-      this.imageUrl = picture;
+  constructor(private router: Router, private userService: UserService) {
+    this.userService.getUserByUsername(this.userName).subscribe((u: User) => {
+      console.log("da pic1"+u.profilePic);
+      this.imageUrl = u.profilePic;
     });
   }
 
@@ -28,6 +26,7 @@ export class AccountSettingsComponent {
   newUsername: String = "";
   imageUrl:string = "";
   newImageUrl : string = "";
+  pictureSize: number = 200;
 
   isAvailableText:string = "enter username";
   userExists: boolean = true;
@@ -45,7 +44,6 @@ export class AccountSettingsComponent {
 
   notChangePic(){
     this.changingPicture = false;
-    this.imageUrl = "";
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     fileInput.value = "";
   }
@@ -92,8 +90,8 @@ export class AccountSettingsComponent {
 
       image.onload = () => {
         let canvas = document.createElement("canvas");
-        canvas.height = 100;
-        canvas.width = 100;
+        canvas.height = this.pictureSize;
+        canvas.width = this.pictureSize;
         const context = canvas.getContext("2d");
 
         if (context) {
@@ -118,7 +116,7 @@ export class AccountSettingsComponent {
     if(this.changingName && this.userExists){return;}
 
     if(this.changingPicture){
-      this.userService.changeProfilePicture(this.userName as string, "\"" + this.newImageUrl + "\"" as string).subscribe();
+      this.userService.changeProfilePicture(this.userName as string, this.newImageUrl as string).subscribe();
     }
 
     if(this.changingPassword){

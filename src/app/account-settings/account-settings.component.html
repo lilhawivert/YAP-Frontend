@@ -1,30 +1,33 @@
+<app-toolbar></app-toolbar>
 <div class="all">
-    <h1>account-settings</h1>
+  <h1>Account Settings</h1>
 
-    <div>
-      <h2>Profile Picture</h2>
-      <input type="file" id="fileInput" (change)="uploadImage()" accept=".png, .jped, .jpg">
+  <div class="section">
+    <h2>Profile Picture</h2>
+    <input type="file" id="fileInput" (change)="uploadImage()" accept=".png, .jpeg, .jpg">
+    <div class="image-container">
       <img *ngIf="!changingPicture" [src]="imageUrl" class="profilePic">
       <img *ngIf="changingPicture" [src]="newImageUrl" class="profilePic">
-      <button *ngIf="changingPicture" (click)="notChangePic()" >reset Picture</button>
+      <button *ngIf="changingPicture" (click)="notChangePic()" class="reset-button">Reset Picture</button>
     </div>
+  </div>
 
-    <div>
-      <h2>User Name</h2>
-      <p>Username: {{ userName }}</p>
-      <button (click)="changeName()">{{ changingName ? 'Not Change' : 'Change' }}</button>
-      <input *ngIf="changingName" (input)="handleUserNameChange($event)" type="text" name="username" >
-      <label *ngIf="changingName && userExists" style="color:red"> {{ isAvailableText }} </label>
-      <label *ngIf="changingName && !userExists" style="color:green"> {{ isAvailableText }} </label>
-    </div>
+  <div class="section">
+    <h2>User Name</h2>
+    <p>Username: {{ userName }}</p>
+    <button (click)="changeName()" class="action-button">{{ changingName ? 'Cancel Change' : 'Change' }}</button>
+    <input *ngIf="changingName" (input)="handleUserNameChange($event)" type="text" name="username" class="input-field">
+    <label *ngIf="changingName" [style.color]="userExists ? 'red' : 'green'">{{ isAvailableText }}</label>
+  </div>
 
-    <div>
-      <h2>password</h2>
-      <button (click)="changePassword()">{{ changingPassword ? 'Not Change' : 'Change' }}</button>
-      <input *ngIf="changingPassword" (input)="handlePasswordChange($event)" type="text" name="password" >
-    </div>
+  <div class="section">
+    <h2>Password</h2>
+    <button (click)="changePassword()" class="action-button">{{ changingPassword ? 'Cancel Change' : 'Change' }}</button>
+    <input *ngIf="changingPassword" (input)="handlePasswordChange($event)" type="password" name="password" class="input-field">
+  </div>
 
-  <button (click)="cancelAllChanges()" >Cancel</button>
-  <button (click)="safeAllChanges()" >Safe</button>
-
+  <div class="buttons">
+    <button (click)="cancelAllChanges()" class="cancel-button">Cancel</button>
+    <button (click)="safeAllChanges()" class="safe-button">Save</button>
+  </div>
 </div>

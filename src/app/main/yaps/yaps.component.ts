@@ -19,7 +19,6 @@ export class YapsComponent {
   constructor(public yapService: YapService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-
     this.loading = true;
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.username = params.get('profile');
@@ -36,23 +35,16 @@ export class YapsComponent {
 
     else {
       this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
-
+        this.yapService.usersOfYaps = [];
+        console.log(val)
         if(val.length > 0) {
           this.yapService.loadedYaps = val;
-          this.yapService.usersOfYaps = [];
-          for (let i = 0; i < this.yapService.loadedYaps.length; i++) {
-            this.userService.getUserByUsername(this.yapService.loadedYaps[i].username!).subscribe((u:User) => {
-              this.yapService.usersOfYaps.push(u);
-              console.log(this.yapService.usersOfYaps.length+" "+i);
-              if(this.yapService.usersOfYaps.length==this.yapService.loadedYaps.length)this.loading = false;
-            });
-          }
-
-          console.log("test1");
-          console.log(this.yapService.loadedYaps);
-          console.log(this.yapService.usersOfYaps);
-          console.log(this.yapService.usersOfYaps.length);
-
+          this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
+            this.yapService.usersOfYaps = u;
+            this.loading = false;
+          })
+        }else {
+          this.loading = false
         }
 
       }, () => {
@@ -60,8 +52,6 @@ export class YapsComponent {
         this.down = true;
         this.router.navigate(["/down"])
       });
-
-
 
     }
   }

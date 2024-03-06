@@ -14,5 +14,9 @@ export class SidebarComponent {
     this.router.navigate([`accountSettings`]);
   }
 
+  onClickSearchUser() {
+    this.router.navigate([`userSearch`]);
+  }
+
 
 }
