@@ -1,0 +1,33 @@
+<app-toolbar></app-toolbar>
+
+<h1>Newest yaps of #{{trendName}}</h1>
+
+<ng-container *ngIf="loading">
+  <mat-spinner class="center"></mat-spinner>
+</ng-container>
+<app-down *ngIf="down"></app-down>
+<ng-container *ngIf="!loading && !down">
+
+
+  <mat-card *ngFor="let yap of yapService.loadedYaps; let i = index">
+
+
+    <div class="card-content">
+      <div class="image-container">
+
+        <img *ngIf="!yapService.usersOfYaps[i].profilePic" src="../../assets/pfb.jpg" class="pfb" alt="Your Image">
+        <img *ngIf="yapService.usersOfYaps[i].profilePic" [src]="yapService.usersOfYaps[i].profilePic" class="pfb" alt="Your Image">
+      </div>
+      <div class="text-content">
+        <div class="title">
+          <b *ngIf="yap.username == getUsername" style="color: #226699; cursor: pointer;" (click)="onClickProfile(yap.username)">{{yap.username}}</b>
+          <b *ngIf="yap.username != getUsername" style="cursor: pointer;" (click)="onClickProfile(yap.username)">{{yap.username}}</b>
+        </div>
+        <div class="description" (click)="onClickSpecificYap(i)" style="cursor: pointer;">
+          {{yap.message}}
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+</ng-container>

@@ -26,6 +26,7 @@ import { CommentComponent } from './yap/comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { TrendingComponent } from './main/trending/trending.component';
+import { TrendComponent } from './trend/trend.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { TrendingComponent } from './main/trending/trending.component';
     ProfileComponent,
     UserSearchComponent,
     TrendingComponent,
+    TrendComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { TrendingComponent } from './main/trending/trending.component';
       {path: "down", component: DownComponent},
       {path: "accountSettings", component: AccountSettingsComponent},
       {path: "userSearch", component: UserSearchComponent},
+      {path: "trend/:t", component: TrendComponent},
       {path: ":profile", component: ProfileComponent},
       {path: "**", component: NotfoundComponent}
     ])

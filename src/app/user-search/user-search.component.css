@@ -1,9 +1,33 @@
-.image-container img {
-  width: 65px;
-  height: auto;
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+
+
+.user-list {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-card {
+  width: 17.5vw;
+  margin: 1vw;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.profile-pic {
+  width: 100%;
   height: auto;
 }
 
-.card-content{
-  height: 130px; /* Vollständige Höhe des Bildschirms verwenden */
+.no-user {
+  color: red;
+  margin-bottom: 20px;
 }
