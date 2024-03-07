@@ -71,4 +71,12 @@ export class YapService {
     return this.http.post(this.url+"yap/"+yap.id+"/comment/"+commentId, user)
   }
 
+  getTrends(){
+    return this.http.get<string[]>(this.url+"getTrends");
+  }
+
+  getYapsOfTrend(trend: String){
+  return this.http.get<Yap[]>(this.url+"getYapsOfTrend/"+trend);
+  }
+
 }

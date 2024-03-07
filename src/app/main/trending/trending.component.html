@@ -1,1 +1,18 @@
-<p>trending works!</p>
+<h1>Trending:</h1>
+
+<div *ngIf="trends.length === 0" class="no-user">No Trends</div>
+
+<ng-container *ngFor="let trend of trends; let i = index">
+  <mat-card class="user-card">
+    <div class="card-content" (click)="onClickSpecificTrend(i)">
+
+      <div class="TrendName">
+        <b>#{{trends[i][0]}} </b>
+      </div>
+      <div class="TrendNumber">
+        <b>{{trends[i][1]}} Yaps</b>
+      </div>
+
+    </div>
+  </mat-card>
+</ng-container>

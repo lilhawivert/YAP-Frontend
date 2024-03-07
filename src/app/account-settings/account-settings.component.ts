@@ -11,11 +11,16 @@ import { Router } from '@angular/router';
 export class AccountSettingsComponent {
 
   constructor(private router: Router, private userService: UserService) {
+  }
+
+  ngOnInit() {
     this.userService.getUserByUsername(this.userName).subscribe((u: User) => {
-      console.log("da pic1"+u.profilePic);
       this.imageUrl = u.profilePic;
+      if (!this.imageUrl)
+        this.imageUrl="../../assets/pfb.jpg";
     });
   }
+
 
   changingName: boolean = false;
   changingPassword: boolean = false;

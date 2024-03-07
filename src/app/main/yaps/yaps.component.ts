@@ -36,13 +36,14 @@ export class YapsComponent {
     else {
       this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
         this.yapService.usersOfYaps = [];
-        console.log(val)
+        console.log(val);
         if(val.length > 0) {
           this.yapService.loadedYaps = val;
           this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
             this.yapService.usersOfYaps = u;
             this.loading = false;
-          })
+            console.log(u);
+          });
         }else {
           this.loading = false
         }

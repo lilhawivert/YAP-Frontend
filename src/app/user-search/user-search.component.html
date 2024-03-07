@@ -1,41 +1,38 @@
 <app-toolbar></app-toolbar>
 
-<div>
+<div class="search-container">
   <select id="myDropdown" (change)="handleDropdownChange($event)">
     <option value="option1">Search by username</option>
     <option value="option2">Search by user id</option>
   </select>
-  <input  (input)="handleInputChange($event)" type="text" name="userInput" >
-  <button (click)="search()" >Search</button>
+  <input (input)="handleInputChange($event)" type="text" name="userInput" placeholder="Enter search term">
+  <button (click)="search()">Search</button>
 </div>
-<div>
 
-  <div *ngIf="users.length == 0" > no user found</div>
+<div class="user-list">
 
-  <ng-container>
+  <div *ngIf="users.length === 0" class="no-user">No user found</div>
 
-    <mat-card *ngFor="let item of [].constructor(users.length); let i = index">
+  <ng-container *ngFor="let user of users">
+    <mat-card class="user-card">
       <div class="card-content">
 
         <div class="username">
-          <b *ngIf="users[i].username == getUsername" style="color: #226699; cursor: pointer;" (click)="onClickProfile(users[i].username)">{{users[i].username}}</b>
-          <b *ngIf="users[i].username != getUsername" style="cursor: pointer;" (click)="onClickProfile(users[i].username)">{{users[i].username}}</b>
+          <b *ngIf="user.username == getUsername" style="color: #226699; cursor: pointer;" (click)="onClickProfile(user.username)">{{user.username}}</b>
+          <b *ngIf="user.username != getUsername" style="cursor: pointer;" (click)="onClickProfile(user.username)">{{user.username}}</b>
         </div>
 
+
         <div class="image-container">
-          <img *ngIf="!users[i].profilePic" src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-          <img *ngIf="users[i].profilePic" [src]="users[i].profilePic" class="pfb" alt="Your Image">
+          <img [src]="user.profilePic ? user.profilePic : '../../../assets/pfb.jpg'" class="profile-pic" alt="Profile Picture">
         </div>
 
         <div class="userId">
-            <b>UserID: {{users[i].id}}</b>
+          <b>UserID: {{ user.id }}</b>
         </div>
 
       </div>
-
     </mat-card>
-
   </ng-container>
-
 
 </div>
