@@ -10,7 +10,7 @@
     <title>Login</title>
 </head>
 
-<body style="height: 100vh">
+<body>
     <div class="container h-100 w-100 align-items-center justify-content-center d-flex">
         <div class="row w-100 d-flex justify-content-center">
             <div class="col-12 col-md-6" style="height: 400px">
@@ -36,13 +36,13 @@
                         (click)="switchToRegister()">Register</button>
                 </form>
                 <div *ngIf="loginFailed" class="alert alert-danger popup" role="alert">
-                    Password or username is incorrect. 
+                    Password or username is incorrect.
                 </div>
                 <div *ngIf="disableLoginButton" class="alert alert-danger popup" role="alert">
-                    Bro gotta chill.  
+                    Bro gotta chill.
                 </div>
                 <div *ngIf="down" class="alert alert-danger popup" role="alert">
-                    The server seems to be down.  
+                    The server seems to be down.
                 </div>
             </div>
         </div>

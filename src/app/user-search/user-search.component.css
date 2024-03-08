@@ -1,3 +1,10 @@
+body{
+  background-color: white;
+  filter: invert(100%) hue-rotate(180deg);
+  overflow: auto;
+}
+
+
 .search-container {
   display: flex;
   align-items: center;
@@ -16,6 +23,7 @@
 .user-card {
   width: 17.5vw;
   margin: 1vw;
+  border: 10px solid #f5eeff;
 }
 
 .card-content {
@@ -25,9 +33,11 @@
 .profile-pic {
   width: 100%;
   height: auto;
+  filter: invert(100%) hue-rotate(180deg);
 }
 
 .no-user {
   color: red;
   margin-bottom: 20px;
 }
+

@@ -1,3 +1,9 @@
+body{
+  background-color: white;
+  filter: invert(100%) hue-rotate(180deg);
+  overflow: auto;
+}
+
 .align-right {
     float: right;
 }
@@ -68,5 +74,13 @@ input.ng-touched.ng-invalid {
   }
 
 .trending{
-  float: right;
+  position: absolute;
+  top: 200px;
+  right: 200px;
+}
+
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
 }

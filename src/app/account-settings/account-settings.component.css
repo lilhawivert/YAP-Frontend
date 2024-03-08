@@ -1,3 +1,10 @@
+body{
+  background-color: white;
+  filter: invert(100%) hue-rotate(180deg);
+  overflow: auto;
+}
+
+
 .all {
   max-width: 600px;
   margin: 0 auto;
@@ -23,6 +30,7 @@ h1, h2 {
   height: 150px;
   border-radius: 50%;
   margin-bottom: 10px;
+  filter: invert(100%) hue-rotate(180deg);
 }
 
 .action-button {

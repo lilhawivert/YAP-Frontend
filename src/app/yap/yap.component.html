@@ -9,14 +9,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
 </head>
-<app-toolbar></app-toolbar>
-<ng-container *ngIf="loading">
-  <mat-spinner class="center"></mat-spinner>
-</ng-container>
-<app-down *ngIf="down"></app-down>
-<ng-container *ngIf="!loading && !down">
 
-  <body style="height: 100vh">
+
+  <body>
+
+  <app-toolbar></app-toolbar>
+  <ng-container *ngIf="loading">
+    <mat-spinner class="center"></mat-spinner>
+  </ng-container>
+  <app-down *ngIf="down"></app-down>
+  <ng-container *ngIf="!loading && !down">
+
+
     <div class="container h-100 w-100 align-items-top justify-content-center d-flex">
       <div class="row w-100 d-flex justify-content-center">
         <div class="col-12 col-md-6" style="height: 400px">
@@ -37,7 +41,7 @@
                   (click)="onClickHeartYap()" style="cursor: pointer; color: #226699">favorite</mat-icon> <mat-icon
                   *ngIf="!yap.liked" (click)="onClickHeartYap()"
                   style="cursor: pointer; color: #226699">favorite_border</mat-icon> <span class="comment-icon">{{yap.likes ? yap.likes :
-                  0}}</span> 
+                  0}}</span>
                   <mat-icon style="color: red; cursor: pointer;" *ngIf="getUsername===yap.username" (click)="onClickDeleteYap()">delete_outline</mat-icon></div>
             </mat-card-content>
           </mat-card>
@@ -60,7 +64,7 @@
     </div>
 
 
-  </body>
-</ng-container>
 
+  </ng-container>
+  </body>
 </html>

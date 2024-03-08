@@ -31,7 +31,7 @@ export class AccountSettingsComponent {
   newUsername: String = "";
   imageUrl:string = "";
   newImageUrl : string = "";
-  pictureSize: number = 200;
+  pictureMaxSize: number = 64000;
 
   isAvailableText:string = "enter username";
   userExists: boolean = true;
@@ -95,17 +95,18 @@ export class AccountSettingsComponent {
 
       image.onload = () => {
         let canvas = document.createElement("canvas");
-        canvas.height = this.pictureSize;
-        canvas.width = this.pictureSize;
+        canvas.height = 500;
+        canvas.width = 500;
         const context = canvas.getContext("2d");
 
         if (context) {
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-          let lengthTest: number = canvas.toDataURL("image/jpeg").length;
-          let quality: number = Math.min(((64000 / lengthTest) * 100), 100);
-
-          this.newImageUrl = canvas.toDataURL("image/jpeg", quality);
+          do {
+            canvas.height = canvas.height-5;
+            canvas.width = canvas.width-5;
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            this.newImageUrl = canvas.toDataURL("image/jpeg");
+          } while(this.newImageUrl.length >= this.pictureMaxSize);
           console.log("new size: " + this.newImageUrl.length);
         } else {
           console.error("Could not get 2D context from canvas.");
