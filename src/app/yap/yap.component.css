@@ -1,3 +1,11 @@
+body{
+  background-color: white;
+  filter: invert(100%) hue-rotate(180deg);
+  overflow: auto;
+  height: 100vh;
+}
+
+
 .align-right {
     float: right;
 }

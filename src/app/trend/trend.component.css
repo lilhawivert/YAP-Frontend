@@ -1,3 +1,9 @@
+body{
+  background-color: white;
+  filter: invert(100%) hue-rotate(180deg);
+  overflow: auto;
+}
+
 .align-right {
   float: right;
 }
@@ -30,6 +36,7 @@ input.ng-touched.ng-invalid {
   height: auto;
   border-radius: 50%;
   display: inline-block;
+  filter: invert(100%) hue-rotate(180deg);
 }
 
 .example-card {
