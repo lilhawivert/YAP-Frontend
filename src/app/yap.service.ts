@@ -43,6 +43,10 @@ export class YapService {
     return this.http.post<Yap>(this.url+"yap/"+id, username);
   }
 
+  getYapById(){
+
+  }
+
   likeYap(id: string | undefined, user: string | null) {
     return this.http.post(this.url+"yap/"+id+"/like", user);
   }
@@ -77,6 +81,10 @@ export class YapService {
 
   getYapsOfTrend(trend: String){
   return this.http.get<Yap[]>(this.url+"getYapsOfTrend/"+trend);
+  }
+
+  safeYap(yapId: string, username: string){
+
   }
 
 }

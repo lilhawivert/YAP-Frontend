@@ -30,7 +30,7 @@ export class YapComponent {
         this.down = true;
       })
     });
-      
+
   }
 
   likeComment(comment: Comment) {
@@ -96,6 +96,10 @@ export class YapComponent {
       this.yap.comments!.filter(cmt => cmt.message==event.message && cmt.username==event.username)[0].deleted = true
       this.yap.comments!.filter(cmt => cmt.message==event.message && cmt.username==event.username)[0].message = "[deleted]"
     })
+  }
+
+  onClickSafeYap(){
+
   }
 
 }

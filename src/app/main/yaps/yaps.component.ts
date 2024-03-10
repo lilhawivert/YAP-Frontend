@@ -83,6 +83,16 @@ export class YapsComponent {
     return Math.min(10, this.yapService.loadedYaps.length);
   }
 
+  splitTrendsYap(message: string): string[] {
+    const regex = /(?=[ @#]|<br>)/;
+    return message.replace(/\n/g, '<br>').split(regex);
+  }
+
+  navigateToTrend(trend: string){
+    this.router.navigate([`trend/${trend}`]);
+  }
+
+
 
   // addImage(): void {
   //   this.fileInput.nativeElement.click();
@@ -92,5 +102,9 @@ export class YapsComponent {
   //   this.selectedFile = event.target.files[0];
   //   console.log('Selected file:', this.selectedFile);
   // }
+
+
+
+
 
 }
