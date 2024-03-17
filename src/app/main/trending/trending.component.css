@@ -1,3 +1,10 @@
+.user-card, .no-trends{
+  background-color: var(--main-color);
+  overflow: auto;
+}
+
+
+
 .card-content:hover {
   cursor: pointer;
 }

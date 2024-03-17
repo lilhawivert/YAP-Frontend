@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
+<body>
 <ng-container *ngIf="loading">
   <mat-spinner class="center"></mat-spinner>
 </ng-container>
 <app-down *ngIf="down"></app-down>
 <ng-container *ngIf="!loading && !down">
-
   <!-- <body style="height: 100vh"> -->
     <!-- <div class="container h-100 w-100 align-items-top justify-content-center d-flex"> -->
       <!-- <div class="row w-100 d-flex justify-content-center"> -->
@@ -36,7 +36,8 @@
 
                       </mat-card-content>
                 </mat-card> -->
-                    <mat-card *ngFor="let item of [].constructor(getMaxYaps()); let i = index">
+
+                    <mat-card *ngFor="let item of [].constructor(yapService.loadedYaps.length); let i = index">
                       <!-- <img src="../../../assets/pfb.jpg" class="pfb">
                         {{yapService.loadedYaps[i].username}}: {{yapService.loadedYaps[i].message}} -->
 
@@ -50,8 +51,11 @@
                                 <b *ngIf="yapService.loadedYaps[i].username == getUsername" style="color: #226699; cursor: pointer;" (click)="onClickProfile(yapService.loadedYaps[i].username)">{{yapService.loadedYaps[i].username}}</b>
                                 <b *ngIf="yapService.loadedYaps[i].username != getUsername" style="cursor: pointer;" (click)="onClickProfile(yapService.loadedYaps[i].username)">{{yapService.loadedYaps[i].username}}</b>
                               </div>
-                              <div class="description" (click)="onClickSpecificYap(i)" style="cursor: pointer;">
-                                {{yapService.loadedYaps[i].message}}
+                              <div (click)="onClickSpecificYap(i)" style="cursor: pointer" class="description">
+                                <span *ngFor="let part of splitTrendsYap(yapService.loadedYaps[i].message)">
+                                <span *ngIf="part.indexOf('#') !== -1 && part.indexOf('#') < part.length - 1" style="color:red" (click)="navigateToTrend(part.substring(1));$event.stopPropagation()" [innerHTML]="part"></span>
+                                  <span *ngIf="part.indexOf('@') !== -1 && part.indexOf('@') < part.length - 1" style="color:blue" (click)="onClickProfile(part.substring(1));$event.stopPropagation()" [innerHTML]="part"></span>
+                                  <span *ngIf="((part[0] !== '#' || part.slice(-1) === '#') && (part[0] !== '@' || part.slice(-1) === '@'))" [innerHTML]="part"></span></span>
                               </div>
                             </div>
                           </div>
@@ -63,6 +67,9 @@
 
 
 <!-- </body> -->
+  <button (click)="loadYaps(yapService.loadedYaps.length+yapsPerRequest)" >display more</button>
+
 </ng-container>
+</body>
 </html>
 

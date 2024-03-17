@@ -1,7 +1,7 @@
 <body>
 <app-toolbar></app-toolbar>
 
-<h1>Newest yaps of #{{trendName}}</h1>
+<h1>Newest yaps of <span style="color:red" [innerHTML]="'#'+trendName"></span></h1>
 
 <ng-container *ngIf="loading">
   <mat-spinner class="center"></mat-spinner>

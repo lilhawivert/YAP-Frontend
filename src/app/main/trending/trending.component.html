@@ -1,6 +1,7 @@
 <h1>Trending:</h1>
 
-<div *ngIf="trends.length === 0" class="no-user">No Trends</div>
+<body>
+<div *ngIf="trends.length === 0" class="no-trends">No Trends</div>
 
 <ng-container *ngFor="let trend of trends; let i = index">
   <mat-card class="user-card">
@@ -16,3 +17,4 @@
     </div>
   </mat-card>
 </ng-container>
+</body>

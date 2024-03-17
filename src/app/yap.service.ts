@@ -35,12 +35,16 @@ export class YapService {
   public loadedYaps: Yap[] = [];
   public usersOfYaps: User[] = [];
 
-  getYaps(username: string | null) {
-    return this.http.post<Yap[]>(this.url+"yaps", username, { headers: this.headers });
+  getYaps(username: string | null, maxYaps: number) {
+    return this.http.post<Yap[]>(this.url+"yaps/"+maxYaps, username, { headers: this.headers });
   }
 
   getYap(id: string, username: string | null) {
     return this.http.post<Yap>(this.url+"yap/"+id, username);
+  }
+
+  getYapById(){
+
   }
 
   likeYap(id: string | undefined, user: string | null) {
@@ -77,6 +81,10 @@ export class YapService {
 
   getYapsOfTrend(trend: String){
   return this.http.get<Yap[]>(this.url+"getYapsOfTrend/"+trend);
+  }
+
+  safeYap(yapId: string, username: string){
+
   }
 
 }

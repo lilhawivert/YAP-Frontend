@@ -24,3 +24,14 @@ input.ng-touched.ng-invalid {
     margin-top: 0.5rem;
     text-align: center;
 }
+
+.input-wrapper {
+  position: relative;
+}
+
+.show-password {
+  position: absolute;
+  right: 8px;
+  top: 52%;
+  transform: translateY(-50%);
+}

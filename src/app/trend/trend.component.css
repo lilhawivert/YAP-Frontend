@@ -1,7 +1,11 @@
 body{
-  background-color: white;
+  background-color: #eeeeee;
   filter: invert(100%) hue-rotate(180deg);
   overflow: auto;
+}
+
+.card-content{
+  background-color: #eeeeee;
 }
 
 .align-right {

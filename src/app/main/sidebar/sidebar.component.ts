@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 @Component({
   selector: 'app-sidebar',
@@ -18,5 +19,10 @@ export class SidebarComponent {
     this.router.navigate([`userSearch`]);
   }
 
+  onClickSavedYaps(){
+    this.router.navigate([`userSearch`]);
+  }
 
+
+  protected readonly provideAnimationsAsync = provideAnimationsAsync;
 }

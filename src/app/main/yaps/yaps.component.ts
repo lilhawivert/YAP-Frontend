@@ -16,6 +16,8 @@ export class YapsComponent {
   public loading: boolean = false;
   public down: boolean = false;
   username: string | null;
+  yapsPerRequest: number = 10;
+
   constructor(public yapService: YapService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
@@ -34,26 +36,7 @@ export class YapsComponent {
     }
 
     else {
-      this.yapService.getYaps(localStorage.getItem("username")).subscribe((val: Yap[]) => {
-        this.yapService.usersOfYaps = [];
-        console.log(val);
-        if(val.length > 0) {
-          this.yapService.loadedYaps = val;
-          this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
-            this.yapService.usersOfYaps = u;
-            this.loading = false;
-            console.log(u);
-          });
-        }else {
-          this.loading = false
-        }
-
-      }, () => {
-        this.loading = false;
-        this.down = true;
-        this.router.navigate(["/down"])
-      });
-
+      this.loadYaps(this.yapsPerRequest);
     }
   }
 
@@ -79,8 +62,41 @@ export class YapsComponent {
     });
   }
 
-  getMaxYaps() {
-    return Math.min(10, this.yapService.loadedYaps.length);
+  splitTrendsYap(message: string): string[] {
+    const regex = /(?=[ @#/;()?!]|<br>)/;
+    message = message.replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/'/g, "&#39;")
+      .replace(/"/g, "&quot;");
+    console.log(message.replace(/\n/g, '<br>').split(regex))
+    return message.replace(/\n/g, '<br>').split(regex);
+  }
+
+  navigateToTrend(trend: string){
+    this.router.navigate([`trend/${trend}`]);
+  }
+
+  loadYaps(maxYaps: number){
+    this.loading=true;
+    this.yapService.getYaps(localStorage.getItem("username"),maxYaps).subscribe((val: Yap[]) => {
+      console.log(val);
+      if(val.length > 0) {
+        this.yapService.loadedYaps = val;
+        this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
+          this.yapService.usersOfYaps = u;
+          console.log(u);
+          this.loading = false;
+        });
+      }else {
+        this.loading = false
+      }
+
+    }, () => {
+      this.loading = false;
+      this.down = true;
+      this.router.navigate(["/down"])
+    });
   }
 
 
@@ -92,5 +108,9 @@ export class YapsComponent {
   //   this.selectedFile = event.target.files[0];
   //   console.log('Selected file:', this.selectedFile);
   // }
+
+
+
+
 
 }
