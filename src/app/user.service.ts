@@ -9,6 +9,7 @@ export interface User {
   username: string,
   password: string,
   profilePic: string,
+  bgColor: number
 }
 
 @Injectable({
@@ -72,6 +73,10 @@ export class UserService {
 
   getUsersByUsernamePartial(username: string){
     return this.http.get<User[]>(this.url+"getUsersByUsernamePartial/"+username);
+  }
+
+  changeBGColor(username: string, bgColor: number){
+    return this.http.post(this.url+"changeBgColor/"+username, bgColor);
   }
 
 }

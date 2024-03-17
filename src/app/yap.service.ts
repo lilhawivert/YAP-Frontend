@@ -35,8 +35,8 @@ export class YapService {
   public loadedYaps: Yap[] = [];
   public usersOfYaps: User[] = [];
 
-  getYaps(username: string | null) {
-    return this.http.post<Yap[]>(this.url+"yaps", username, { headers: this.headers });
+  getYaps(username: string | null, maxYaps: number) {
+    return this.http.post<Yap[]>(this.url+"yaps/"+maxYaps, username, { headers: this.headers });
   }
 
   getYap(id: string, username: string | null) {

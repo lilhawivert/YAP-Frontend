@@ -3,6 +3,13 @@
 <div class="all">
   <h1>Account Settings</h1>
 
+
+  <div class="section">
+    <h2>Background Color</h2>
+    <input [(ngModel)]="bgColor" (ngModelChange)="changeBgColor($event)" type="range" min="0" max="100" value="20" class="slider" id="slider1">
+  </div>
+
+
   <div class="section">
     <h2>Profile Picture</h2>
     <input type="file" id="fileInput" (change)="uploadImage()" accept=".png, .jpeg, .jpg">
@@ -24,8 +31,12 @@
   <div class="section">
     <h2>Password</h2>
     <button (click)="changePassword()" class="action-button">{{ changingPassword ? 'Cancel Change' : 'Change' }}</button>
-    <input *ngIf="changingPassword" (input)="handlePasswordChange($event)" type="password" name="password" class="input-field">
+    <div class="input-wrapper">
+      <input *ngIf="changingPassword" (input)="handlePasswordChange($event)" [type]="showingPassword ? 'text':'password'" name="password" class="input-field">
+      <mat-icon class="show-password" *ngIf="changingPassword" (click)="changePasswordVisibility()">{{ showingPassword ? 'visibility_off': 'visibility' }}</mat-icon>
+    </div>
   </div>
+
 
   <div class="buttons">
     <button (click)="cancelAllChanges()" class="cancel-button">Cancel</button>

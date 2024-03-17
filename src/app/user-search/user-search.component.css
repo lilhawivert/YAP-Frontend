@@ -1,6 +1,6 @@
 body{
-  background-color: white;
-  filter: invert(100%) hue-rotate(180deg);
+  background-color: var(--main-color);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
   overflow: auto;
 }
 
@@ -23,7 +23,7 @@ body{
 .user-card {
   width: 17.5vw;
   margin: 1vw;
-  border: 10px solid #f5eeff;
+  border: 10px solid #f5f3ff;
 }
 
 .card-content {
@@ -33,7 +33,7 @@ body{
 .profile-pic {
   width: 100%;
   height: auto;
-  filter: invert(100%) hue-rotate(180deg);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
 }
 
 .no-user {

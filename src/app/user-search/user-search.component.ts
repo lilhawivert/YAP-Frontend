@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import {User, UserService} from '../user.service';
 import { Router } from '@angular/router';
+import {BgColors} from "../bgColors";
 
 @Component({
   selector: 'app-user-search',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserSearchComponent {
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private bgColors: BgColors, private elementRef: ElementRef, private router: Router, private userService: UserService) {
 
   }
 
@@ -19,6 +20,11 @@ export class UserSearchComponent {
 
 
   ngOnInit() {
+    const bgCol = localStorage.getItem('bgColorValue');
+    if(bgCol){
+      this.bgColors.setBgColorToCss(Number(bgCol), this.elementRef);
+    }
+
     if(this.searchByUser){
       this.userService.getUsersByUsernamePartial(this.input).subscribe((u:User[]) =>{
         this.users = u;

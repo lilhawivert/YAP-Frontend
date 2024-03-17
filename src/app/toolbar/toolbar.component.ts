@@ -14,6 +14,7 @@ export class ToolbarComponent {
   onLogoutClick(): void {
     this.userService.userLoggedIn = false;
     localStorage.removeItem("username");
+    localStorage.removeItem("bgColorValue")
     this.router.navigate(["/login"])
   }
 

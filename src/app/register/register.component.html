@@ -22,7 +22,10 @@
                       <span style="color: red" *ngIf="!checkValidUsername(applyForm.get('username')?.value) && applyForm.get('username')?.touched">Please enter a valid username</span>                    </div>
                     <div class="form-group">
                       <label for="password">Password</label>
-                      <input type="password" class="form-control" id="password" placeholder="Enter password" formControlName="password">
+                      <div class="input-wrapper">
+                        <input id="password" placeholder="Enter password" class="form-control" formControlName="password" [type]="showingPassword ? 'text':'password'" name="password">
+                        <mat-icon class="show-password"  (click)="changePasswordVisibility()">{{ showingPassword ? 'visibility_off': 'visibility' }}</mat-icon>
+                      </div>
                       <span style="color: red" *ngIf="!applyForm.get('password')?.valid && applyForm.get('password')?.touched">Please enter a valid password</span>
                     </div>
                     <button mat-raised-button color="primary" type="submit" [disabled]="!checkValidUsername(applyForm.get('username')?.value) || form.form.invalid">Register</button>

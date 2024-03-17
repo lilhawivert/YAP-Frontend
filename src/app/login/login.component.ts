@@ -15,6 +15,7 @@ export class LoginComponent {
   loginFailedAnzahl: number = 0;
   disableLoginButton: boolean = false;
   down: boolean = false;
+  showingPassword: boolean = false;
 
   applyForm = new FormGroup({
     username: new FormControl("", Validators.required),
@@ -23,6 +24,10 @@ export class LoginComponent {
 
   ngOnInit() {
     if(localStorage.getItem("username")) this.router.navigate(["/"]);
+  }
+
+  changePasswordVisibility(){
+    this.showingPassword = !this.showingPassword;
   }
 
   submitForm() {

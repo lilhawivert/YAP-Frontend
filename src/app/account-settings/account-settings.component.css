@@ -1,6 +1,6 @@
 body{
-  background-color: white;
-  filter: invert(100%) hue-rotate(180deg);
+  background-color: var(--main-color);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
   overflow: auto;
 }
 
@@ -30,7 +30,7 @@ h1, h2 {
   height: 150px;
   border-radius: 50%;
   margin-bottom: 10px;
-  filter: invert(100%) hue-rotate(180deg);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
 }
 
 .action-button {
@@ -76,4 +76,15 @@ h1, h2 {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.show-password {
+  position: absolute;
+  right: 8px;
+  top: 60%;
+  transform: translateY(-50%);
 }

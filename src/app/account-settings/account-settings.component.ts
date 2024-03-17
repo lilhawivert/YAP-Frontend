@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import {User, UserService} from '../user.service';
 import { Router } from '@angular/router';
-
+import {BgColors} from "../bgColors";
 
 @Component({
   selector: 'app-account-settings',
@@ -10,21 +10,31 @@ import { Router } from '@angular/router';
 })
 export class AccountSettingsComponent {
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private bgColors: BgColors, private elementRef: ElementRef, private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
+    const bgCol = localStorage.getItem('bgColorValue');
+    if(bgCol){
+      this.bgColors.setBgColorToCss(Number(bgCol), this.elementRef);
+    }
+
+    this.bgColor = parseInt(getComputedStyle(this.elementRef.nativeElement.ownerDocument.documentElement).getPropertyValue('--value'));
+
     this.userService.getUserByUsername(this.userName).subscribe((u: User) => {
       this.imageUrl = u.profilePic;
       if (!this.imageUrl)
         this.imageUrl="../../assets/pfb.jpg";
     });
+
+
   }
 
 
   changingName: boolean = false;
   changingPassword: boolean = false;
   changingPicture: boolean = false;
+  changingBgColor: boolean = false;
 
   newPassword: String = "";
   userName: string = localStorage.getItem("username")!;
@@ -32,12 +42,16 @@ export class AccountSettingsComponent {
   imageUrl:string = "";
   newImageUrl : string = "";
   pictureMaxSize: number = 64000;
+  showingPassword: boolean = false;
 
   isAvailableText:string = "enter username";
   userExists: boolean = true;
+  bgColor: number = 20;
 
 
-
+  changePasswordVisibility(){
+    this.showingPassword = !this.showingPassword;
+  }
 
   changeName(){
     this.changingName = !this.changingName;
@@ -121,33 +135,62 @@ export class AccountSettingsComponent {
   async safeAllChanges(){
     if(this.changingName && this.userExists){return;}
 
+    if(this.changingPassword || this.changingName){
+      this.userService.userLoggedIn = false;
+      localStorage.removeItem("username");
+      this.router.navigate(["/login"]);
+    }else{
+      this.router.navigate(["/"]);
+    }
+
+    let changedPassword = false;
+    let changedPicture = false;
+    let changedBgColor = false;
+
+    if(this.changingBgColor){
+      this.userService.changeBGColor(this.userName as string, this.bgColor).subscribe(() =>{
+        changedBgColor = true;
+      });
+      localStorage.setItem("bgColorValue",String(this.bgColor));
+    }
+
+    while (!changedBgColor && this.changingBgColor){
+      await this.sleep(10);
+    }
+
     if(this.changingPicture){
-      this.userService.changeProfilePicture(this.userName as string, this.newImageUrl as string).subscribe();
+      this.userService.changeProfilePicture(this.userName as string, this.newImageUrl as string).subscribe(() =>{
+          changedPicture = true;
+      });
+    }
+
+    while (!changedPicture && this.changingPicture){
+      await this.sleep(10);
     }
 
     if(this.changingPassword){
-      await this.sleep(1000);
-      this.userService.changePassword(this.userName as string, this.newPassword as string).subscribe();
-      this.userService.userLoggedIn = false;
-      localStorage.removeItem("username");
-      await this.router.navigate(["/login"])
+      this.userService.changePassword(this.userName as string, this.newPassword as string).subscribe(() => {
+        changedPassword = true;
+      });
+    }
+
+    while (!changedPassword && this.changingPassword){
+      await this.sleep(10);
     }
 
     if(this.changingName){
-      await this.sleep(1000);
       this.userService.changeUserName(this.userName  as string, this.newUsername as string).subscribe();
-      this.userService.userLoggedIn = false;
-      localStorage.removeItem("username");
-      await this.router.navigate(["/login"])
     }
 
-
-
-    this.router.navigate(["/"]);
   }
 
   cancelAllChanges(){
     this.router.navigate(["/"]);
+  }
+
+  changeBgColor(event: any){
+    this.changingBgColor = true;
+    this.bgColors.setBgColorToCss(this.bgColor, this.elementRef);
   }
 
 

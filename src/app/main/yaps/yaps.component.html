@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
+<body>
 <ng-container *ngIf="loading">
   <mat-spinner class="center"></mat-spinner>
 </ng-container>
@@ -36,7 +37,7 @@
                       </mat-card-content>
                 </mat-card> -->
 
-                    <mat-card *ngFor="let item of [].constructor(getMaxYaps()); let i = index">
+                    <mat-card *ngFor="let item of [].constructor(yapService.loadedYaps.length); let i = index">
                       <!-- <img src="../../../assets/pfb.jpg" class="pfb">
                         {{yapService.loadedYaps[i].username}}: {{yapService.loadedYaps[i].message}} -->
 
@@ -52,10 +53,9 @@
                               </div>
                               <div (click)="onClickSpecificYap(i)" style="cursor: pointer" class="description">
                                 <span *ngFor="let part of splitTrendsYap(yapService.loadedYaps[i].message)">
-                                <span *ngIf="part[0]==='#'" style="color:red" (click)="navigateToTrend(part.substring(1));$event.stopPropagation()" [innerHTML]="part"></span>
-                                  <span *ngIf="part[0]==='@'" style="color:blue" (click)="onClickProfile(part.substring(1));$event.stopPropagation()" [innerHTML]="part"></span>
-                                <span *ngIf="part[0]!=='#' && part[0]!=='@'"   [innerHTML]="part"></span>
-                              </span>
+                                <span *ngIf="part.indexOf('#') !== -1 && part.indexOf('#') < part.length - 1" style="color:red" (click)="navigateToTrend(part.substring(1));$event.stopPropagation()" [innerHTML]="part"></span>
+                                  <span *ngIf="part.indexOf('@') !== -1 && part.indexOf('@') < part.length - 1" style="color:blue" (click)="onClickProfile(part.substring(1));$event.stopPropagation()" [innerHTML]="part"></span>
+                                  <span *ngIf="((part[0] !== '#' || part.slice(-1) === '#') && (part[0] !== '@' || part.slice(-1) === '@'))" [innerHTML]="part"></span></span>
                               </div>
                             </div>
                           </div>
@@ -67,6 +67,9 @@
 
 
 <!-- </body> -->
+  <button (click)="loadYaps(yapService.loadedYaps.length+yapsPerRequest)" >display more</button>
+
 </ng-container>
+</body>
 </html>
 
