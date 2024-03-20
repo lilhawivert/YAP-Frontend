@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { YapService } from '../yap.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private yapService: YapService) {}
 
   loginFailed: boolean = false;
   loginFailedAnzahl: number = 0;
@@ -38,6 +39,7 @@ export class LoginComponent {
       this.userService.username = this.applyForm.value.username;
       this.userService.userLoggedIn = true;
       localStorage.setItem("username", this.userService.username || "");
+      this.yapService.loadedYaps = [];
       this.router.navigate(["/"])
   }, (err: any) => {
     if(err.status == 0) this.down = true;

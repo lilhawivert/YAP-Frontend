@@ -26,9 +26,16 @@ export class YapsComponent {
       this.username = params.get('profile');
     });
     if(this.username) {
+      console.log("here")
       this.userService.getYapsByUser(this.username).subscribe((yaps: Yap[]) => {
         this.loading = false;
         this.yapService.loadedYaps = yaps;
+        console.log(yaps)
+        this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
+          this.yapService.usersOfYaps = u;
+          console.log(u);
+          this.loading = false;
+        });
       }, () => {
         this.loading = false;
         this.down = true;
@@ -75,6 +82,9 @@ export class YapsComponent {
 
   navigateToTrend(trend: string){
     this.router.navigate([`trend/${trend}`]);
+  }
+
+  onClickLoadMore(): void {
   }
 
   loadYaps(maxYaps: number){
