@@ -26,9 +26,16 @@ export class YapsComponent {
       this.username = params.get('profile');
     });
     if(this.username) {
+      console.log("here")
       this.userService.getYapsByUser(this.username).subscribe((yaps: Yap[]) => {
         this.loading = false;
         this.yapService.loadedYaps = yaps;
+        console.log(yaps)
+        this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
+          this.yapService.usersOfYaps = u;
+          console.log(u);
+          this.loading = false;
+        });
       }, () => {
         this.loading = false;
         this.down = true;
@@ -69,7 +76,7 @@ export class YapsComponent {
       .replace(/>/g, "&gt;")
       .replace(/'/g, "&#39;")
       .replace(/"/g, "&quot;");
-    console.log(message.replace(/\n/g, '<br>').split(regex))
+    // console.log(message.replace(/\n/g, '<br>').split(regex))
     return message.replace(/\n/g, '<br>').split(regex);
   }
 
@@ -77,15 +84,22 @@ export class YapsComponent {
     this.router.navigate([`trend/${trend}`]);
   }
 
+  onClickLoadMore(): void {
+  }
+
   loadYaps(maxYaps: number){
     this.loading=true;
     this.yapService.getYaps(localStorage.getItem("username"),maxYaps).subscribe((val: Yap[]) => {
-      console.log(val);
+      // console.log(val);
       if(val.length > 0) {
-        this.yapService.loadedYaps = val;
+        this.yapService.loadedYaps = val.filter((obj, index, self) =>
+        index === self.findIndex((t) => (
+            t.id === obj.id
+        ))
+    );;
         this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
           this.yapService.usersOfYaps = u;
-          console.log(u);
+          // console.log(u);
           this.loading = false;
         });
       }else {

@@ -27,8 +27,8 @@ export class TrendingComponent {
         }
       });
       this.trends = Array.from(stringCounts.entries()).sort((a, b) => b[1] - a[1]).slice(0, this.maxTrends);
-      console.log("trending:");
-      console.log(this.trends);
+      // console.log("trending:");
+      // console.log(this.trends);
     });
   }
 

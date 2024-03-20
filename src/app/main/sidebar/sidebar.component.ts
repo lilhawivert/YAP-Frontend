@@ -19,10 +19,6 @@ export class SidebarComponent {
     this.router.navigate([`userSearch`]);
   }
 
-  onClickSavedYaps(){
-    this.router.navigate([`userSearch`]);
-  }
-
 
   protected readonly provideAnimationsAsync = provideAnimationsAsync;
 }

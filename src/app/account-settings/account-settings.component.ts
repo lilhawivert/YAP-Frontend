@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {User, UserService} from '../user.service';
 import { Router } from '@angular/router';
 import {BgColors} from "../bgColors";
@@ -26,8 +26,11 @@ export class AccountSettingsComponent {
       if (!this.imageUrl)
         this.imageUrl="../../assets/pfb.jpg";
     });
+
+
   }
 
+  @ViewChild('fileInput') fileInput!: any;
   changingName: boolean = false;
   changingPassword: boolean = false;
   changingPicture: boolean = false;
@@ -41,7 +44,7 @@ export class AccountSettingsComponent {
   pictureMaxSize: number = 64000;
   showingPassword: boolean = false;
 
-  isAvailableText:string = "enter username";
+  isAvailableText:string = "Enter username";
   userExists: boolean = true;
   bgColor: number = 20;
 
@@ -85,7 +88,12 @@ export class AccountSettingsComponent {
     this.newPassword = event.target.value;
   }
 
+  addImage(): void {
+    this.fileInput.nativeElement.click();
+  }
+
   uploadImage() {
+    console.log("Ayy?")
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     if (!fileInput.files) {
       return;
@@ -102,7 +110,7 @@ export class AccountSettingsComponent {
       let image = new Image();
       image.src = image_url as string;
 
-      console.log("old size: " + image.src.length);
+      // console.log("old size: " + image.src.length);
 
       image.onload = () => {
         let canvas = document.createElement("canvas");
@@ -118,7 +126,7 @@ export class AccountSettingsComponent {
             context.drawImage(image, 0, 0, canvas.width, canvas.height);
             this.newImageUrl = canvas.toDataURL("image/jpeg");
           } while(this.newImageUrl.length >= this.pictureMaxSize);
-          console.log("new size: " + this.newImageUrl.length);
+          // console.log("new size: " + this.newImageUrl.length);
         } else {
           console.error("Could not get 2D context from canvas.");
         }
@@ -160,6 +168,7 @@ export class AccountSettingsComponent {
       this.userService.changeProfilePicture(this.userName as string, this.newImageUrl as string).subscribe(() =>{
           changedPicture = true;
       });
+      localStorage.setItem("profilePicture", this.newImageUrl);
     }
 
     while (!changedPicture && this.changingPicture){

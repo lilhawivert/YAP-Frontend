@@ -25,7 +25,8 @@
 
 
         <div class="image-container">
-          <img [src]="user.profilePic ? user.profilePic : '../../../assets/pfb.jpg'" class="profile-pic" alt="Profile Picture">
+          <img [src]="user.profilePic ? user.profilePic : '../../../assets/pfb.jpg'" class="profile-pic" alt="Profile Picture"
+          style="cursor: pointer;" (click)="onClickProfile(user.username)">
         </div>
 
         <div class="userId">

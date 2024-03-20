@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { User, UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { YapService } from '../yap.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private yapService: YapService) {}
 
   loginFailed: boolean = false;
   loginFailedAnzahl: number = 0;
@@ -34,10 +35,14 @@ export class LoginComponent {
     this.userService.login(
       this.applyForm.value.username ?? "",
       this.applyForm.value.password ?? ""
-    ).subscribe(() => {
+    ).subscribe((loggedInUser: User) => {
+      console.log(loggedInUser)
       this.userService.username = this.applyForm.value.username;
       this.userService.userLoggedIn = true;
       localStorage.setItem("username", this.userService.username || "");
+      if(loggedInUser.profilePic) localStorage.setItem("profilePicture", loggedInUser.profilePic);
+      else localStorage.setItem("profilePicture", "../../../assets/pfb.jpg");
+      this.yapService.loadedYaps = [];
       this.router.navigate(["/"])
   }, (err: any) => {
     if(err.status == 0) this.down = true;

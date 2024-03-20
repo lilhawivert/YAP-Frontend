@@ -33,6 +33,10 @@ h1, h2 {
   filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
 }
 
+#profilePic:hover {
+  filter: brightness(40%)
+}
+
 .action-button {
   padding: 8px 16px;
   background-color: #007bff;
@@ -53,7 +57,7 @@ h1, h2 {
 .buttons {
   text-align: right;
 }
-
+/* 
 .cancel-button, .safe-button {
   padding: 8px 16px;
   background-color: #6c757d;
@@ -61,7 +65,7 @@ h1, h2 {
   border: none;
   cursor: pointer;
   margin-right: 10px;
-}
+} */
 
 .cancel-button:hover, .safe-button:hover {
   background-color: #5a6268;
@@ -69,6 +73,41 @@ h1, h2 {
 
 .image-container {
   position: relative;
+  display: inline-block;
+}
+
+.image-container img {
+  display: block;
+  max-width: 100%;
+}
+
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  padding: 10px;
+  border-radius: 5px;
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  /* transition: visibility 0s, opacity 0.5s linear; */
+}
+
+.image-text:hover {
+  
+}
+
+.align-left {
+  float: left;
+  color: red;
+}
+
+.image-container:hover .image-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 .reset-button {
