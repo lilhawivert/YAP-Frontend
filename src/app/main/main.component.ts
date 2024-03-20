@@ -39,7 +39,11 @@ export class MainComponent implements OnInit {
 
   onClickYap() {
     this.yapService.yapAway({username: localStorage.getItem("username"), message: this.textareaInput.nativeElement.value}).subscribe((receivedId: string) => {
+      console.log("here")
       this.yapService.loadedYaps.unshift({username: localStorage.getItem("username"), message: this.textareaInput.nativeElement.value, id: receivedId})
+      this.yapService.usersOfYaps.unshift({
+        username: localStorage.getItem("username") + "", profilePic: "../../../assets/pfb.jpg",
+      })
       this.textareaInput.nativeElement.value = "";
     }, () => {
       //on yap error

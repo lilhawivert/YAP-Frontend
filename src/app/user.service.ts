@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { Yap } from './yap.service';
 
 export interface User {
-  id: string,
+  id?: string,
   username: string,
-  password: string,
+  password?: string,
   profilePic: string,
-  bgColor: number
+  bgColor?: number
 }
 
 @Injectable({
