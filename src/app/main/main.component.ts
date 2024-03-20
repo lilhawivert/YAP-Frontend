@@ -35,6 +35,9 @@ export class MainComponent implements OnInit {
         if(bgColor){
           localStorage.setItem('bgColorValue', String(bgColor));
           this.bgColors.setBgColorToCss(bgColor, this.elementRef);
+        }else{
+          localStorage.setItem('bgColorValue', "0");
+          this.bgColors.setBgColorToCss(0, this.elementRef);
         }
       });
     }
