@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Yap } from './yap.service';
+import { DM } from './dm/dm.component';
 
 export interface User {
   id?: string,
@@ -16,13 +17,21 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-
+  
   public username: string | null | undefined = "";
   public userLoggedIn: boolean = false;
   // public profilePicture: string = "../../../assets/pfb.jpg";
   private url: string = "http://localhost:8080/";
-
+  
   constructor(private http: HttpClient, private router: Router) { }
+  
+  sendMessage(sender: string | null, receiver: string | null, message: any) {
+    this.http.post(this.url+"dm", {sender: sender, receiver: receiver, message: message}).subscribe();
+  }
+
+  getMessages(sender: string | null, receiver: string | null) {
+    return this.http.get<DM[]>(this.url+"dm?user1="+sender+"&user2="+receiver);
+  }
 
   register(username: string, password: string): Observable<Object> {
     return this.http.post(this.url+"register", {username: username, password: password})

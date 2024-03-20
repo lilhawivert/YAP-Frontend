@@ -30,3 +30,24 @@
     transform: translateY(-50%);
   }
   
+  .message-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    max-width: 70%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .outgoing {
+    align-self: flex-end;
+    background-color: #DCF8C6; /* Light green for outgoing messages */
+  }
+  
+  .incoming {
+    align-self: flex-start;
+    background-color: #ECE5DD; /* Light gray for incoming messages */
+  }
