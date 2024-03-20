@@ -82,7 +82,11 @@ export class YapsComponent {
     this.yapService.getYaps(localStorage.getItem("username"),maxYaps).subscribe((val: Yap[]) => {
       console.log(val);
       if(val.length > 0) {
-        this.yapService.loadedYaps = val;
+        this.yapService.loadedYaps = val.filter((obj, index, self) =>
+        index === self.findIndex((t) => (
+            t.id === obj.id
+        ))
+    );;
         this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
           this.yapService.usersOfYaps = u;
           console.log(u);
