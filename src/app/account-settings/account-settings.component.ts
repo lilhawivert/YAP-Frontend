@@ -26,10 +26,7 @@ export class AccountSettingsComponent {
       if (!this.imageUrl)
         this.imageUrl="../../assets/pfb.jpg";
     });
-
-
   }
-
 
   changingName: boolean = false;
   changingPassword: boolean = false;
@@ -138,6 +135,7 @@ export class AccountSettingsComponent {
     if(this.changingPassword || this.changingName){
       this.userService.userLoggedIn = false;
       localStorage.removeItem("username");
+      localStorage.removeItem("bgColorItem");
       this.router.navigate(["/login"]);
     }else{
       this.router.navigate(["/"]);
