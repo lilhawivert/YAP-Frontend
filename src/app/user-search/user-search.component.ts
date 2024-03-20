@@ -27,7 +27,11 @@ export class UserSearchComponent {
 
     if(this.searchByUser){
       this.userService.getUsersByUsernamePartial(this.input).subscribe((u:User[]) =>{
-        this.users = u;
+        this.users = u.filter((obj, index, self) =>
+        index === self.findIndex((t) => (
+            t.id === obj.id
+        ))
+    );;
         console.log(this.users);
       });
     }
@@ -38,7 +42,11 @@ export class UserSearchComponent {
     if(selectedOption === "option1"){
       this.searchByUser = true;
       this.userService.getUsersByUsernamePartial(this.input).subscribe((u:User[]) =>{
-        this.users = u;
+        this.users = u.filter((obj, index, self) =>
+        index === self.findIndex((t) => (
+            t.id === obj.id
+        ))
+    );
         console.log(this.users);
       });
     }else if(selectedOption === "option2"){
@@ -51,7 +59,11 @@ export class UserSearchComponent {
       this.input = event.target.value;
       if(this.searchByUser){
         this.userService.getUsersByUsernamePartial(this.input).subscribe((u:User[]) =>{
-          this.users = u;
+          this.users = u.filter((obj, index, self) =>
+          index === self.findIndex((t) => (
+              t.id === obj.id
+          ))
+      );
           console.log(this.users);
         });
       }
@@ -60,12 +72,20 @@ export class UserSearchComponent {
   search(){
     if(this.searchByUser){
       this.userService.getUserByUsername(this.input).subscribe((u: User) => {
-        if(u!=null)this.users = [u];
+        if(u!=null)this.users = [u].filter((obj, index, self) =>
+        index === self.findIndex((t) => (
+            t.id === obj.id
+        ))
+    );
         console.log(this.users);
       });
     }else {
       this.userService.getUserByUserID(this.input).subscribe((u: User) => {
-        if(u!=null)this.users = [u];
+        if(u!=null)this.users = [u].filter((obj, index, self) =>
+        index === self.findIndex((t) => (
+            t.id === obj.id
+        ))
+    );
         console.log(this.users);
       });
     }
