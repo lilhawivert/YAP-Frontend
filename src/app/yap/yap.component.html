@@ -42,7 +42,6 @@
                 <mat-icon *ngIf="!yap.liked" (click)="onClickHeartYap()" style="cursor: pointer; color: red">favorite_border</mat-icon>
                 <span class="comment-icon">{{yap.likes ? yap.likes : 0}}</span>
                 <mat-icon style="color: red; cursor: pointer;" *ngIf="getUsername===yap.username" (click)="onClickDeleteYap()">delete_outline</mat-icon>
-                <mat-icon class="comment-icon" (click)="onClickSafeYap()" style="color: #226699; cursor: pointer;" >archive</mat-icon>
               </div>
 
             </mat-card-content>

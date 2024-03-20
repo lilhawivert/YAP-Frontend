@@ -98,8 +98,4 @@ export class YapComponent {
     })
   }
 
-  onClickSafeYap(){
-
-  }
-
 }
