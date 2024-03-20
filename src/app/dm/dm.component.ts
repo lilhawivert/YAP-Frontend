@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 // import SockJS from 'sockjs-client';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
+import { Subject } from 'rxjs';
 // import Stomp from 'stompjs';
 
 // declare var SockJS: any;
@@ -45,30 +46,14 @@ export class DmComponent {
 
       var socket = new SockJS(this.webSocketConnect);
       console.log(this.dms)
-      let tst: DM[] = this.dms;
+      let a = this;
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame: any) {
         stompClient.subscribe('/send/'+localStorage.getItem("username")+params.get("profile"), (request: any) => {
-          
-          console.log(request)
-          // console.log("heawer")
-          // console.log(document.getElementById("dmTextArea"))
-          // document.getElementById("dmTextArea")!.innerText = request.body;
-          tst.push({sender: params.get("profile") + "", receiver: localStorage.getItem("username") + "", message: request.body})
-          // this.dms.push({sender: params.get("profile") + "", receiver: localStorage.getItem("username") + "", message: request.body})
+          a.dms.push({sender: params.get("profile") + "", receiver: localStorage.getItem("username") + "", message: request.body})
         })
       });
-
-
-
   })
-
-
-}
-
-receiveMessage(event:any) {
-  console.log("XXXXXXXXXX")
-  this.dms.push({sender: this.partner + "", receiver: localStorage.getItem("username") + "", message: document.getElementById("dmTextArea")!.innerText})
 }
 
 sendMessage() {
