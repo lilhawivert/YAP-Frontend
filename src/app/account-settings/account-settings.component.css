@@ -57,7 +57,7 @@ h1, h2 {
 .buttons {
   text-align: right;
 }
-
+/* 
 .cancel-button, .safe-button {
   padding: 8px 16px;
   background-color: #6c757d;
@@ -65,7 +65,7 @@ h1, h2 {
   border: none;
   cursor: pointer;
   margin-right: 10px;
-}
+} */
 
 .cancel-button:hover, .safe-button:hover {
   background-color: #5a6268;
@@ -98,6 +98,11 @@ h1, h2 {
 
 .image-text:hover {
   
+}
+
+.align-left {
+  float: left;
+  color: red;
 }
 
 .image-container:hover .image-text {

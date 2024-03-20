@@ -44,7 +44,7 @@ export class AccountSettingsComponent {
   pictureMaxSize: number = 64000;
   showingPassword: boolean = false;
 
-  isAvailableText:string = "enter username";
+  isAvailableText:string = "Enter username";
   userExists: boolean = true;
   bgColor: number = 20;
 

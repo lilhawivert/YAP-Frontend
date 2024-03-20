@@ -23,14 +23,16 @@
   <div class="section">
     <h2>User Name</h2>
     <p>Username: {{ userName }}</p>
-    <button (click)="changeName()" class="action-button">{{ changingName ? 'Cancel Change' : 'Change' }}</button>
+    <!-- <button (click)="changeName()" class="action-button">{{ changingName ? 'Cancel Change' : 'Change' }}</button> -->
+    <button mat-stroked-button color="primary" class="align-right" type="button" (click)="changeName()">{{ changingName ? 'Cancel' : 'Change' }}</button>
     <input *ngIf="changingName" (input)="handleUserNameChange($event)" type="text" name="username" class="input-field">
     <label *ngIf="changingName" [style.color]="userExists ? 'red' : 'green'">{{ isAvailableText }}</label>
   </div>
 
   <div class="section">
     <h2>Password</h2>
-    <button (click)="changePassword()" class="action-button">{{ changingPassword ? 'Cancel Change' : 'Change' }}</button>
+    <!-- <button (click)="changePassword()" class="action-button">{{ changingPassword ? 'Cancel Change' : 'Change' }}</button> -->
+    <button mat-stroked-button color="primary" class="align-right" type="button" (click)="changePassword()">{{ changingPassword ? 'Cancel' : 'Change' }}</button>
     <div class="input-wrapper">
       <input *ngIf="changingPassword" (input)="handlePasswordChange($event)" [type]="showingPassword ? 'text':'password'" name="password" class="input-field">
       <mat-icon class="show-password" *ngIf="changingPassword" (click)="changePasswordVisibility()">{{ showingPassword ? 'visibility_off': 'visibility' }}</mat-icon>
@@ -39,8 +41,10 @@
 
 
   <div class="buttons">
-    <button (click)="cancelAllChanges()" class="cancel-button">Cancel</button>
-    <button (click)="safeAllChanges()" class="safe-button">Save</button>
+    <button mat-stroked-button color="warn" class="align-left" type="button" (click)="cancelAllChanges()">Cancel</button>
+    <button mat-stroked-button color="primary" class="align-right" type="button" (click)="safeAllChanges()">Save</button>
+    <!-- <button (click)="cancelAllChanges()" class="cancel-button">Cancel</button> -->
+    <!-- <button (click)="safeAllChanges()" class="safe-button">Save</button> -->
   </div>
 </div>
 </body>
