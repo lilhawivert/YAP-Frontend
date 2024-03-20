@@ -42,7 +42,7 @@ export class MainComponent implements OnInit {
       console.log("here")
       this.yapService.loadedYaps.unshift({username: localStorage.getItem("username"), message: this.textareaInput.nativeElement.value, id: receivedId})
       this.yapService.usersOfYaps.unshift({
-        username: localStorage.getItem("username") + "", profilePic: "../../../assets/pfb.jpg",
+        username: localStorage.getItem("username") + "", profilePic: localStorage.getItem("profilePicture") + "",
       })
       this.textareaInput.nativeElement.value = "";
     }, () => {

@@ -162,6 +162,7 @@ export class AccountSettingsComponent {
       this.userService.changeProfilePicture(this.userName as string, this.newImageUrl as string).subscribe(() =>{
           changedPicture = true;
       });
+      localStorage.setItem("profilePicture", this.newImageUrl);
     }
 
     while (!changedPicture && this.changingPicture){

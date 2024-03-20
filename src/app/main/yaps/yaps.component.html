@@ -43,8 +43,8 @@
 
                         <div class="card-content">
                             <div class="image-container">
-                              <img *ngIf="!yapService.usersOfYaps[i].profilePic" src="../../../assets/pfb.jpg" class="pfb" alt="Your Image">
-                              <img *ngIf="yapService.usersOfYaps[i].profilePic" [src]="yapService.usersOfYaps[i].profilePic" class="pfb" alt="Your Image">
+                              <img *ngIf="!yapService.usersOfYaps[i].profilePic" src="../../../assets/pfb.jpg" class="pfb">
+                              <img *ngIf="yapService.usersOfYaps[i].profilePic" [src]="yapService.usersOfYaps[i].profilePic" class="pfb">
                             </div>
                             <div class="text-content">
                               <div class="title">

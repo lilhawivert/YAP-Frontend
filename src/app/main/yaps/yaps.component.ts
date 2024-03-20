@@ -76,7 +76,7 @@ export class YapsComponent {
       .replace(/>/g, "&gt;")
       .replace(/'/g, "&#39;")
       .replace(/"/g, "&quot;");
-    console.log(message.replace(/\n/g, '<br>').split(regex))
+    // console.log(message.replace(/\n/g, '<br>').split(regex))
     return message.replace(/\n/g, '<br>').split(regex);
   }
 
@@ -90,7 +90,7 @@ export class YapsComponent {
   loadYaps(maxYaps: number){
     this.loading=true;
     this.yapService.getYaps(localStorage.getItem("username"),maxYaps).subscribe((val: Yap[]) => {
-      console.log(val);
+      // console.log(val);
       if(val.length > 0) {
         this.yapService.loadedYaps = val.filter((obj, index, self) =>
         index === self.findIndex((t) => (
@@ -99,7 +99,7 @@ export class YapsComponent {
     );;
         this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
           this.yapService.usersOfYaps = u;
-          console.log(u);
+          // console.log(u);
           this.loading = false;
         });
       }else {

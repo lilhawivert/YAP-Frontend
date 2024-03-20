@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { User, UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { YapService } from '../yap.service';
 @Component({
@@ -35,10 +35,13 @@ export class LoginComponent {
     this.userService.login(
       this.applyForm.value.username ?? "",
       this.applyForm.value.password ?? ""
-    ).subscribe(() => {
+    ).subscribe((loggedInUser: User) => {
+      console.log(loggedInUser)
       this.userService.username = this.applyForm.value.username;
       this.userService.userLoggedIn = true;
       localStorage.setItem("username", this.userService.username || "");
+      if(loggedInUser.profilePic) localStorage.setItem("profilePicture", loggedInUser.profilePic);
+      else localStorage.setItem("profilePicture", "../../../assets/pfb.jpg");
       this.yapService.loadedYaps = [];
       this.router.navigate(["/"])
   }, (err: any) => {

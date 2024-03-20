@@ -19,6 +19,7 @@ export class UserService {
 
   public username: string | null | undefined = "";
   public userLoggedIn: boolean = false;
+  // public profilePicture: string = "../../../assets/pfb.jpg";
   private url: string = "http://localhost:8080/";
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -28,7 +29,7 @@ export class UserService {
   }
 
   login(username: string, password: string) {
-    return this.http.post(this.url+"login", {username: username, password: password})
+    return this.http.post<User>(this.url+"login", {username: username, password: password})
   }
 
   userExists(username: string){
