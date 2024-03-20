@@ -1,6 +1,7 @@
 .user-card, .no-trends{
   background-color: var(--main-color);
   overflow: auto;
+  margin-bottom: 20px;
 }
 
 

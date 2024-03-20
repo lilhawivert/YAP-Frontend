@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Stomp } from '@stomp/stompjs';
+
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -28,6 +30,7 @@ import { UserSearchComponent } from './user-search/user-search.component';
 import { TrendingComponent } from './main/trending/trending.component';
 import { TrendComponent } from './trend/trend.component';
 import { SavedComponent } from './saved/saved.component';
+import { DmComponent } from './dm/dm.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import { SavedComponent } from './saved/saved.component';
     TrendingComponent,
     TrendComponent,
     SavedComponent,
+    DmComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,7 @@ import { SavedComponent } from './saved/saved.component';
       {path: "userSearch", component: UserSearchComponent},
       {path: "trend/:t", component: TrendComponent},
       {path: ":profile", component: ProfileComponent},
+      {path: ":profile/dm", component: DmComponent},
       {path: "**", component: NotfoundComponent}
     ])
   ],

@@ -88,6 +88,7 @@ export class YapsComponent {
   }
 
   loadYaps(maxYaps: number){
+    console.log("here")
     this.loading=true;
     this.yapService.getYaps(localStorage.getItem("username"),maxYaps).subscribe((val: Yap[]) => {
       // console.log(val);
