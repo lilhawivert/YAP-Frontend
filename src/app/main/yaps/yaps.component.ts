@@ -96,7 +96,7 @@ export class YapsComponent {
         index === self.findIndex((t) => (
             t.id === obj.id
         ))
-    );;
+    );
         this.userService.getUsersOfYaps(this.yapService.loadedYaps).subscribe((u: User[]) => {
           this.yapService.usersOfYaps = u;
           // console.log(u);

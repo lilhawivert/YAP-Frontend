@@ -24,18 +24,28 @@ export class DownComponent implements OnInit {
   y: number = 0;
   xSpeed: number = 0;
   ySpeed: number = 0;
-  maxSpeed: number = 4;
-  acceleration: number = 0.1;
+  maxSpeed: number = 2.5;
+  acceleration: number = 0.07;
   deceleration: number = 0.03;
-  bounciness: number = 1;
+  lives: number = 3;
+  score: number = 0;
+
+  maxAmmunition = 100;
+  ammunition: number =this.maxAmmunition;
+  toLowAmmo: boolean = false;
 
   shootCoolDownTime: number = 3;
   currentShootWaitTime: number = 0;
   shouterLength: number = 30;
   shoutingSpeed: number = 7;
 
-  enemySpawnRate: number = 500;
+  ultiCooldown: number = 1000;
+  currentUltiWaitTime = 0;
+
+  enemySpawnRate: number = 200;
   currentEnemySpawnWaitTime: number = 0;
+
+  breakingAudio: HTMLAudioElement;
 
   mouseDown: boolean = false;
   ups: boolean = false
@@ -62,6 +72,10 @@ export class DownComponent implements OnInit {
     });
     this.drawAll();
 
+    this.breakingAudio = new Audio();
+    this.breakingAudio.src = "../../assets/breaking.wav"
+    this.breakingAudio.volume = 0.23;
+
   }
 
   start(): void {
@@ -81,8 +95,12 @@ export class DownComponent implements OnInit {
       this.spawnEnemies();
       this.updateEnemies();
       this.checkShootCollisions();
+      this.checkPlayerCollisions();
+      this.reloadAmmoAndUlti();
+      this.adjustSpawnRate();
 
-      requestAnimationFrame(mainLoop);
+      if(!this.ended)
+        requestAnimationFrame(mainLoop);
     }
     mainLoop();
   }
@@ -90,6 +108,30 @@ export class DownComponent implements OnInit {
   drawAll():void{
     this.ctx.clearRect(0, 0, this.cw, this.cw);
     this.drawCircle(this.cw/2, this.cw/2, this.cw/2, "black")
+
+    for (let i = 0; i < this.lives; i++) {
+      this.drawHeart(i*40 ,10,35);
+    }
+
+    this.drawText("score: "+this.score,450,30,"black",20);
+
+    for (let i = 0; i < 20; i++) {
+      this.drawRectWithBorder(3,450 + i * 5, 20, 4, "black", 1 )
+    }
+
+    for (let i = 0; i < 20; i++) {
+      if(this.ammunition >= (20-i)*(this.maxAmmunition/20)){
+        this.drawRectWithBorder(4,451 + i * 5, 28, 2, "grey", 2 )
+      }
+    }
+
+    this.drawRectWithBorder(560, 455, 38, 100, "black", 1)
+    if(this.currentUltiWaitTime < this.ultiCooldown) {
+      this.drawFilledRectangle(561, 456 + 98 - this.currentUltiWaitTime / this.ultiCooldown * 98, 36, this.currentUltiWaitTime / this.ultiCooldown * 98, "green");
+    }else{
+      this.drawFilledRectangle(561, 456, 36, 98, "lightgreen");
+
+    }
 
     this.drawCircle(this.x, this.y, this.radius, "blue")
 
@@ -102,7 +144,9 @@ export class DownComponent implements OnInit {
 
     for (let i = 0; i < this.allEnemies.length; i++) {
       let e: Enemy = this.allEnemies[i];
-      this.drawCircle(e.xPos, e.yPos, e.radius, "red")
+      if(Math.pow(this.cw/2+e.radius,2)>=Math.pow(this.cw/2-e.xPos,2)+Math.pow(this.cw/2-e.yPos,2)) {
+        this.drawCircle(e.xPos, e.yPos, e.radius, "red")
+      }
     }
 
 
@@ -138,6 +182,37 @@ export class DownComponent implements OnInit {
     this.ctx.stroke();
   }
 
+  drawHeart(x: number, y: number, size: number, color: string = "red"): void {
+    this.ctx.fillStyle = color;
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y + size / 4);
+    this.ctx.quadraticCurveTo(x, y, x + size / 4, y);
+    this.ctx.quadraticCurveTo(x + size / 2, y, x + size / 2, y + size / 4);
+    this.ctx.quadraticCurveTo(x + size / 2, y, x + size * 3 / 4, y);
+    this.ctx.quadraticCurveTo(x + size, y, x + size, y + size / 4);
+    this.ctx.quadraticCurveTo(x + size, y + size / 2, x + size * 3 / 4, y + size * 3 / 4);
+    this.ctx.lineTo(x + size / 2, y + size);
+    this.ctx.lineTo(x + size / 4, y + size * 3 / 4);
+    this.ctx.quadraticCurveTo(x, y + size / 2, x, y + size / 4);
+    this.ctx.fill();
+  }
+
+  drawText(text: string, x: number, y: number, color: string, fontSize: number): void {
+    this.ctx.fillStyle = color;
+    this.ctx.font = `${fontSize}px Arial`;
+    this.ctx.fillText(text, x, y);
+  }
+
+  drawRectWithBorder(x: number, y: number, width: number, height: number, borderColor: string, borderWidth: number): void {
+    this.ctx.strokeStyle = borderColor;
+    this.ctx.lineWidth = borderWidth;
+    this.ctx.strokeRect(x, y, width, height);
+  }
+
+  drawFilledRectangle(x: number, y: number, width: number, height: number, color: string): void {
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(x, y, width, height);
+  }
 
   normalizeVector(x: number, y: number, length: number): { x: number, y: number } {
     const currentLength = Math.sqrt(x * x + y * y);
@@ -185,27 +260,27 @@ export class DownComponent implements OnInit {
   checkPlayerOutside(): void{
     if(Math.pow(this.cw/2-this.x,2)+Math.pow(this.cw/2-this.y,2)>=Math.pow(this.cw/2-this.radius,2)){
 
-      let vx = this.x-this.cw/2;
-      let vy = this.y-this.cw/2;
+      let xv = this.cw/2 - this.x;
+      let yv = this.cw/2 - this.y;
+
+      let k1,k2: number;
+      if(this.y > 0.75*this.cw || this.y < 0.25 * this.cw) {
+        k1 = ((this.cw / 2 - Math.sqrt(Math.pow(this.cw / 2 - this.radius, 2) - Math.pow(this.cw / 2 - this.x, 2))) - this.y) / yv;
+        k2 = ((this.cw / 2 + Math.sqrt(Math.pow(this.cw / 2 - this.radius, 2) - Math.pow(this.cw / 2 - this.x, 2))) - this.y) / yv;
+      }else{
+        k1 = ((this.cw / 2 - Math.sqrt(Math.pow(this.cw / 2 - this.radius, 2) - Math.pow(this.cw / 2 - this.y, 2))) - this.x) / xv;
+        k2 = ((this.cw / 2 + Math.sqrt(Math.pow(this.cw / 2 - this.radius, 2) - Math.pow(this.cw / 2 - this.y, 2))) - this.x) / xv;
+      }
+
+      let k = Math.min(k1,k2)
+
+      console.log(xv+" "+yv+" "+k)
 
 
-      const dotProduct = vx * this.xSpeed + vy * this.ySpeed;
+      this.x += k * xv;
+      this.y += k * yv;
 
-      const reflectedX = this.xSpeed - 2 * dotProduct * vx;
-      const reflectedY = this.ySpeed - 2 * dotProduct * vy;
-
-      const length = Math.sqrt(reflectedX * reflectedX + reflectedY * reflectedY);
-      const normalizedX = reflectedX / length;
-      const normalizedY = reflectedY / length;
-
-
-      const lengthOfInputVector = Math.sqrt(this.xSpeed * this.xSpeed + this.ySpeed * this.ySpeed)*this.bounciness;
-      let reflectedLengthX = normalizedX * lengthOfInputVector;
-      let reflectedLengthY = normalizedY * lengthOfInputVector;
-
-      //TOTO add pos
-      this.xSpeed = reflectedLengthX;
-      this.ySpeed = reflectedLengthY;
+      console.log(this.x+" "+this.y)
 
     }
   }
@@ -220,9 +295,13 @@ export class DownComponent implements OnInit {
       this.currentShootWaitTime--;
       return;
     }
-    if(!this.mouseDown){
+    if(!this.mouseDown || this.toLowAmmo){
       return;
     }
+
+    console.log("shoot")
+
+    this.ammunition--;
 
     this.currentShootWaitTime = this.shootCoolDownTime;
     let a = this.normalizeVector(this.mouseX-this.x,this.mouseY-this.y,this.shoutingSpeed);
@@ -252,14 +331,14 @@ export class DownComponent implements OnInit {
 
     let rad: number = Math.random()*20+5;
     let speed: number = (Math.random()*10+1)/rad;
-    let hp: number = (Math.random()+1)*rad;
+    let hp: number = (Math.random()+1)/3*rad;
 
     let x: number, y: number;
     do {
       x = Math.random() * 1.5 * this.cw - 0.25 * this.cw;
       y = Math.random() * 1.5 * this.cw - 0.25 * this.cw;
-    } while (Math.pow(x,2) + Math.pow(y,2) <= Math.pow(this.cw/2+rad,2));
-    console.log(x+" "+y)
+    } while (Math.pow(x-this.cw/2,2) + Math.pow(y-this.cw/2,2) <= Math.pow(this.cw/2+rad,2));
+    //console.log(x+" "+y)
 
 
     this.allEnemies.push(new Enemy(x,y,0,0,speed,rad,hp));
@@ -271,6 +350,9 @@ export class DownComponent implements OnInit {
       let e: Enemy = this.allEnemies[i];
       if(e.remainingHitPoints <= 0){
         this.allEnemies.splice(i,1);
+        this.score += Math.floor(e.hitPoints * e.Speed);
+        this.breakingAudio.currentTime=0;
+        this.breakingAudio.play();
         return;
       }
 
@@ -299,6 +381,52 @@ export class DownComponent implements OnInit {
     });
   }
 
+  checkPlayerCollisions(){
+    for (let i = 0; i < this.allEnemies.length; i++) {
+      let e = this.allEnemies[i];
+      if(Math.pow(e.xPos-this.x,2) + Math.pow(e.yPos-this.y,2) <= Math.pow(e.radius + this.radius,2)){
+        this.lives--;
+        this.allEnemies.splice(i,1);
+        if(this.lives <= 0){
+          this.gameOver();
+        }
+      }
+    }
+  }
+
+
+  reloadAmmoAndUlti(){
+    if(this.ammunition <= 0) {
+      this.toLowAmmo = true;
+    }
+    if(this.ammunition >= this.maxAmmunition/10){
+      this.toLowAmmo = false;
+    }
+
+    this.ammunition = Math.min(this.ammunition + 0.5 / this.shootCoolDownTime, this.maxAmmunition);
+
+    this.currentUltiWaitTime = Math.min(this.currentUltiWaitTime + 1, this.ultiCooldown);
+
+    console.log(this.ammunition)
+  }
+
+  async fireUlti(){
+    if(this.currentUltiWaitTime >= this.ultiCooldown){
+      this.currentUltiWaitTime = 0;
+    }
+    this.allEnemies.splice(0,this.allEnemies.length);
+    this.drawCircle(this.cw/2,this.cw/2,this.cw/2,"green");
+  }
+
+
+  gameOver(){
+    this.started = false;
+    this.ended = true;
+    console.log("game over");
+  }
+
+
+
 
 
 
@@ -310,20 +438,24 @@ export class DownComponent implements OnInit {
 
     const play = ():void => {
       if (this.ended) return;
-
+      if(audio.currentTime >= 9.5){
+        audio.currentTime=0;
+      }
       if(this.mouseDown && audio.paused) {
         audio.play();
-        console.log("sound")
-      } else if(!this.mouseDown){
+      } else if(!this.mouseDown || this.toLowAmmo){
         audio.pause();
         audio.currentTime = 0;
-        console.log("no sound")
       }
 
-      setTimeout(play, 10);
+      setTimeout(play, 1);
     }
     play();
 
+  }
+
+  adjustSpawnRate(){
+    //this.enemySpawnRate -=
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -352,12 +484,22 @@ export class DownComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
-    this.mouseDown = true;
+    if (event.button === 0) {
+      this.mouseDown = true;
+    }
   }
 
   @HostListener('document:mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
-    this.mouseDown = false;
+    if (event.button === 0) {
+      this.mouseDown = false;
+    }
+  }
+
+  @HostListener('document:contextmenu', ['$event'])
+  onContextMenu(event: MouseEvent): void {
+    event.preventDefault();
+    this.fireUlti();
   }
 
 }
