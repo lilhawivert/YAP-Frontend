@@ -22,6 +22,10 @@ export class SidebarComponent {
   onClickHome(){
     this.router.navigate([`/`]);
   }
+  
+  switchToDms() {
+    this.router.navigate([`dms`]);
+  }
 
   protected readonly provideAnimationsAsync = provideAnimationsAsync;
 }

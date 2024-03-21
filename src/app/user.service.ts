@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Yap } from './yap.service';
 import { DM } from './dm/dm.component';
+import { Chat } from './dms/dms.component';
 
 export interface User {
   id?: string,
@@ -25,6 +26,10 @@ export class UserService {
   
   constructor(private http: HttpClient, private router: Router) { }
   
+  getLastChats(username: string | null) {
+    return this.http.post<Chat[]>(this.url+"dms", username)
+  }
+
   sendMessage(sender: string | null, receiver: string | null, message: any) {
     this.http.post(this.url+"dm", {sender: sender, receiver: receiver, message: message}).subscribe();
   }

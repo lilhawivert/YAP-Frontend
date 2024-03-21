@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <app-toolbar></app-toolbar>
+    
+      <div class="container h-100 w-100 align-items-center justify-content-center d-flex">
+          <div class="row w-100 d-flex justify-content-center">
+              <ng-container *ngIf="loading">
+                  <mat-spinner class="center"></mat-spinner>
+                </ng-container>
+                <ng-container *ngIf="!loading">
+              <div class="col-12 col-md-6" style="height: 400px">
+                <h1 class="text-center mb-5">Private messages</h1>
+                <div class="chat-list">
+                    <div class="chat" *ngFor="let chat of chats">
+                        <!-- <div class="avatar"> -->
+                            <img *ngIf="!chat.user.profilePic" class="avatar" src="../../../assets/pfb.jpg" alt="" (click)="onClickUsername(chat.user.username)" style="cursor: pointer;">
+                            <img *ngIf="chat.user.profilePic" class="avatar" [src]=chat.user.profilePic alt="" (click)="onClickUsername(chat.user.username)" style="cursor: pointer;">
+                        <!-- </div> -->
+                        <div class="chat-details" (click)="onClickUsername(chat.user.username)" style="cursor: pointer;">
+                            <h3>{{chat.user.username}}</h3>
+                            <p>{{chat.lastDM}}</p>
+                        </div>
+                    </div>
+                    <!-- <div class="chat">
+                        <div class="avatar"></div>
+                        <div class="chat-details">
+                            <h3>Jane Smith</h3>
+                            <p>{{}}</p>
+                        </div>
+                    </div> -->
+                    <!-- Add more chats here -->
+                </div>
+            </div>
+        </ng-container>
+        </div>
+    </div>
+
+</body>
+
+</html>

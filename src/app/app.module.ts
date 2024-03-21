@@ -30,6 +30,7 @@ import { UserSearchComponent } from './user-search/user-search.component';
 import { TrendingComponent } from './main/trending/trending.component';
 import { TrendComponent } from './trend/trend.component';
 import { DmComponent } from './dm/dm.component';
+import { DmsComponent } from './dms/dms.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DmComponent } from './dm/dm.component';
     TrendingComponent,
     TrendComponent,
     DmComponent,
+    DmsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ import { DmComponent } from './dm/dm.component';
       {path: "", component: MainComponent},
       {path: "register", component: RegisterComponent},
       {path: "login", component: LoginComponent},
+      {path: "dms", component: DmsComponent},
       {path: "yap/:id", component: YapComponent},
       {path: "down", component: DownComponent},
       {path: "accountSettings", component: AccountSettingsComponent},
