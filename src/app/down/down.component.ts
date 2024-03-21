@@ -1,6 +1,7 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import { GeneralService } from "../general.service";
 import { Router } from "@angular/router";
+import {BgColors} from "../bgColors";
 
 @Component({
   selector: 'app-down',
@@ -60,9 +61,15 @@ export class DownComponent implements OnInit {
   allProjectiles: Projectile[] = [];
   allEnemies: Enemy[] = [];
 
-  constructor(private generalService: GeneralService, private router: Router) {}
+  constructor(private bgColors: BgColors, private elementRef: ElementRef, private generalService: GeneralService, private router: Router) {}
 
   ngOnInit(): void {
+
+    const bgCol = localStorage.getItem('bgColorValue');
+    if(bgCol){
+      this.bgColors.setBgColorToCss(Number(bgCol), this.elementRef);
+    }
+
     this.statusChecker();
     this.canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d')!;
@@ -122,7 +129,8 @@ export class DownComponent implements OnInit {
 
   drawAll():void{
     this.ctx.clearRect(0, 0, this.cw, this.cw);
-    this.drawCircle(this.cw/2, this.cw/2, this.cw/2, "black")
+    this.drawCircle(this.cw/2, this.cw/2, this.cw/2, "white")
+    this.drawCircle(this.cw/2, this.cw/2, this.cw/2-2, "black")
 
     for (let i = 0; i < this.lives; i++) {
       this.drawHeart(i*40 ,10,35);

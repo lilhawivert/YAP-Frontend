@@ -16,6 +16,7 @@ body{
 .logo-container {
     margin-top: 0.5rem;
     text-align: center;
+
 }
 input.ng-touched.ng-invalid {
     border: 1px solid red;
@@ -42,48 +43,54 @@ input.ng-touched.ng-invalid {
 
 .example-card {
     width: 300px; /* Adjust width as needed */
+}
+
+.card-content {
+  display: flex;
+}
+
+.image-container {
+   flex: 0 0 auto;
+   margin-right: 16px; /* Adjust margin as needed */
+ }
+
+.image-container img {
+  width: 65px;
+  height: auto;
+  height: auto;
+}
+
+.text-content {
+  flex: 1 1 auto;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 8px; /* Adjust margin as needed */
+}
+
+.container {
+  display: flex;
+  align-items: start;
+  padding-left: 0;
+}
+
+.container mat-icon {
   }
 
-  .card-content {
-    display: flex;
-  }
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  .image-container {
-    flex: 0 0 auto;
-    margin-right: 16px; /* Adjust margin as needed */
-  }
+.comment-icon {
+  margin-right: 3rem;
+}
 
-  .image-container img {
-    width: 65px;
-    height: auto;
-    height: auto;
-  }
-
-  .text-content {
-    flex: 1 1 auto;
-  }
-
-  .title {
-    font-weight: bold;
-    margin-bottom: 8px; /* Adjust margin as needed */
-  }
-
-  .container {
-    display: flex;
-    align-items: start;
-    padding-left: 0;
-  /* justify-content: left; */
-  }
-  .container mat-icon {
-  }
-
-  .center {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .comment-icon {
-    margin-right: 3rem;
-  }
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}

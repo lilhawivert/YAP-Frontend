@@ -19,6 +19,9 @@ export class SidebarComponent {
     this.router.navigate([`userSearch`]);
   }
 
+  onClickHome(){
+    this.router.navigate([`/`]);
+  }
 
   protected readonly provideAnimationsAsync = provideAnimationsAsync;
 }

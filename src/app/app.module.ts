@@ -22,14 +22,13 @@ import { MainComponent } from './main/main.component';
 import { YapsComponent } from './main/yaps/yaps.component';
 import { YapComponent } from './yap/yap.component';
 import { DownComponent } from './down/down.component';
-import { SidebarComponent } from './main/sidebar/sidebar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { CommentComponent } from './yap/comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { TrendingComponent } from './main/trending/trending.component';
 import { TrendComponent } from './trend/trend.component';
-import { SavedComponent } from './saved/saved.component';
 import { DmComponent } from './dm/dm.component';
 
 @NgModule({
@@ -50,7 +49,6 @@ import { DmComponent } from './dm/dm.component';
     UserSearchComponent,
     TrendingComponent,
     TrendComponent,
-    SavedComponent,
     DmComponent,
   ],
   imports: [
@@ -70,7 +68,6 @@ import { DmComponent } from './dm/dm.component';
       {path: "yap/:id", component: YapComponent},
       {path: "down", component: DownComponent},
       {path: "accountSettings", component: AccountSettingsComponent},
-      {path: "saved", component: SavedComponent},
       {path: "userSearch", component: UserSearchComponent},
       {path: "trend/:t", component: TrendComponent},
       {path: ":profile", component: ProfileComponent},

@@ -1,3 +1,9 @@
+body{
+  background-color: var(--main-color);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
+  overflow: auto;
+}
+
 .align-right {
     float: right;
 }
@@ -50,24 +56,30 @@ input.ng-touched.ng-invalid {
 
 .down-message{
   position: absolute;
-  left: 10%;
-  top: 20%;
+  left: 85%;
+  top: 40%;
   transform: translate(-50%);
   z-index: 2;
 }
 
 .online-message{
   position: absolute;
-  left: 10%;
-  top: 20%;
+  left: 85%;
+  top: 40%;
   transform: translate(-50%);
   z-index: 2;
 }
 
 .online-button{
   position: absolute;
-  left: 10%;
-  top: 25%;
+  left: 85%;
+  top: 46%;
   transform: translate(-50%);
   z-index: 2;
+}
+
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
 }

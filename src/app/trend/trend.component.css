@@ -76,3 +76,15 @@ input.ng-touched.ng-invalid {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+
+.trends{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
