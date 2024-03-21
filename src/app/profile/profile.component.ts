@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {BgColors} from "../bgColors";
 
 @Component({
   selector: 'app-profile',
@@ -13,9 +14,13 @@ export class ProfileComponent implements OnInit {
 
   public showFollowedCheck: boolean = false;
 
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private bgColors: BgColors, private elementRef: ElementRef, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    const bgCol = localStorage.getItem('bgColorValue');
+    if(bgCol){
+      this.bgColors.setBgColorToCss(Number(bgCol), this.elementRef);
+    }
 
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.username = params.get('profile');

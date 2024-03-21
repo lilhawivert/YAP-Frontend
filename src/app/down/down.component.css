@@ -1,3 +1,9 @@
+body{
+  background-color: var(--main-color);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
+  overflow: auto;
+}
+
 .align-right {
     float: right;
 }
@@ -22,6 +28,59 @@ input.ng-touched.ng-invalid {
   left: 50%;
   top: 13%;
   transform: translate(-50%);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
 }
 
+.gameover{
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%);
+  z-index: 2;
+}
 
+.gameover-score{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.starter{
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.down-message{
+  position: absolute;
+  left: 85%;
+  top: 40%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.online-message{
+  position: absolute;
+  left: 85%;
+  top: 40%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.online-button{
+  position: absolute;
+  left: 85%;
+  top: 46%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}

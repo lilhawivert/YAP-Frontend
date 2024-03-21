@@ -1,7 +1,8 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Yap, YapService} from "../yap.service";
 import {User, UserService} from "../user.service";
+import {BgColors} from "../bgColors";
 
 @Component({
   selector: 'app-trend',
@@ -10,13 +11,17 @@ import {User, UserService} from "../user.service";
 })
 export class TrendComponent {
 
-  constructor(private router: Router, private userService: UserService, public yapService: YapService, public activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef) {}
+  constructor(private bgColors: BgColors, private elementRef: ElementRef, private router: Router, private userService: UserService, public yapService: YapService, public activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
   loading: boolean = true;
   down: boolean = false;
   trendName: string = "";
 
   ngOnInit() {
+    const bgCol = localStorage.getItem('bgColorValue');
+    if(bgCol){
+      this.bgColors.setBgColorToCss(Number(bgCol), this.elementRef);
+    }
     this.activatedRoute.params.subscribe(s => {
       this.trendName = s["t"];
       this.loading = true;

@@ -4,13 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Yap } from './yap.service';
 
-export interface User {
-  id: string,
-  username: string,
-  password: string,
-  profilePic: string,
-}
-
 @Injectable({
   providedIn: 'root'
 })

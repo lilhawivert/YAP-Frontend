@@ -1,6 +1,6 @@
 body{
-  background-color: #eeeeee;
-  filter: invert(100%) hue-rotate(180deg);
+  background-color: var(--main-color);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
   overflow: auto;
 }
 
@@ -40,7 +40,7 @@ input.ng-touched.ng-invalid {
   height: auto;
   border-radius: 50%;
   display: inline-block;
-  filter: invert(100%) hue-rotate(180deg);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
 }
 
 .example-card {
@@ -59,7 +59,6 @@ input.ng-touched.ng-invalid {
 .image-container img {
   width: 65px;
   height: auto;
-  height: auto;
 }
 
 .text-content {
@@ -76,4 +75,16 @@ input.ng-touched.ng-invalid {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+
+.trends{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }

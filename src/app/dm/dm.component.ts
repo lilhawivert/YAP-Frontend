@@ -65,7 +65,7 @@ formatHours(date: Date | undefined): string {
   return date?.toString().split("T")[1].split(".")[0] + "";
 }
 
-formatDate(date: Date | undefined): string { 
+formatDate(date: Date | undefined): string {
   if(date == undefined) return "";
   return date?.toString().split("T")[0] + "";
 }

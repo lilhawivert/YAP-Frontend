@@ -24,7 +24,15 @@
     </div>
 
     <canvas (click)="start()" id="myCanvas" width="600" height="600"></canvas>
+    <h1 class="gameover" *ngIf="ended"> game Over</h1>
+    <h2 class="gameover-score" *ngIf="ended"> score: {{score}}</h2>
+    <h2 class="starter" *ngIf="ended || !started"> double click to start</h2>
 
+    <h2 class="down-message" *ngIf="!online"> Yap is down :(</h2>
+    <h2 class="online-message" *ngIf="online"> Yap is online</h2>
+    <button class="online-button" *ngIf="online" (click)="goToYap()">go to yap</button>
+
+    <app-sidebar class="sidebar" ></app-sidebar>
 </body>
 
 </html>

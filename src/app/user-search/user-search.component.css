@@ -10,6 +10,7 @@ body{
   align-items: center;
   margin-bottom: 20px;
   justify-content: center;
+  margin-left: 350px;
 }
 
 
@@ -18,10 +19,11 @@ body{
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
+  margin-left: 350px;
 }
 
 .user-card {
-  width: 17.5vw;
+  width: 15vw;
   margin: 1vw;
   border: 10px solid #f5f3ff;
 }
@@ -39,5 +41,11 @@ body{
 .no-user {
   color: red;
   margin-bottom: 20px;
+}
+
+.sidebar{
+  position: absolute;
+  top: 200px;
+  left: 200px;
 }
 

@@ -21,15 +21,6 @@
   </div>
 
   <div class="section">
-    <h2>User Name</h2>
-    <p>Username: {{ userName }}</p>
-    <!-- <button (click)="changeName()" class="action-button">{{ changingName ? 'Cancel Change' : 'Change' }}</button> -->
-    <button mat-stroked-button color="primary" class="align-right" type="button" (click)="changeName()">{{ changingName ? 'Cancel' : 'Change' }}</button>
-    <input *ngIf="changingName" (input)="handleUserNameChange($event)" type="text" name="username" class="input-field">
-    <label *ngIf="changingName" [style.color]="userExists ? 'red' : 'green'">{{ isAvailableText }}</label>
-  </div>
-
-  <div class="section">
     <h2>Password</h2>
     <!-- <button (click)="changePassword()" class="action-button">{{ changingPassword ? 'Cancel Change' : 'Change' }}</button> -->
     <button mat-stroked-button color="primary" class="align-right" type="button" (click)="changePassword()">{{ changingPassword ? 'Cancel' : 'Change' }}</button>
@@ -47,4 +38,5 @@
     <!-- <button (click)="safeAllChanges()" class="safe-button">Save</button> -->
   </div>
 </div>
+<app-sidebar class="sidebar" ></app-sidebar>
 </body>
