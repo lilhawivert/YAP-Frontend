@@ -31,7 +31,9 @@
               <mat-card-title *ngIf="getUsername!==yap.username">{{yap.username}}</mat-card-title>
             </mat-card-header>
 
+
             <mat-card-content>
+              <img [src]="profilePic" class="pfb" alt="Your Image" style="cursor: pointer;">
               {{yap.message}}
             </mat-card-content>
 

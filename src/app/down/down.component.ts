@@ -136,10 +136,12 @@ export class DownComponent implements OnInit {
       this.drawHeart(i*40 ,10,35);
     }
 
-    this.drawText("score: "+this.score,450,30,"black",20);
-    this.drawText("move: w,a,s,d",500,70,"black",10);
-    this.drawText("shoot: leftClick",515,80,"black",10);
-    this.drawText("ulti: rightClick",530,90,"black",10);
+
+    const bgCol: string = (parseInt(localStorage.getItem('bgColorValue') || "1")) > 50 ? "white":"black";
+    this.drawText("score: "+this.score,450,30,bgCol,20);
+    this.drawText("move: w,a,s,d",500,70,bgCol,10);
+    this.drawText("shoot: leftClick",515,80,bgCol,10);
+    this.drawText("ulti: rightClick",530,90,bgCol,10);
 
     for (let i = 0; i < 20; i++) {
       this.drawRectWithBorder(3,450 + i * 5, 20, 4, "black", 1 )

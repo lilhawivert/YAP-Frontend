@@ -2,6 +2,7 @@ import {  Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comment, Yap, YapService } from '../yap.service';
 import {BgColors} from "../bgColors";
+import {User, UserService} from "../user.service";
 
 @Component({
   selector: 'app-yap',
@@ -11,9 +12,10 @@ import {BgColors} from "../bgColors";
 export class YapComponent {
   @ViewChild('commentTextArea') textareaInput!: ElementRef;
 
-  constructor(private bgColors: BgColors, private elementRef: ElementRef, private router: Router, private yapService: YapService, public activatedRoute: ActivatedRoute) {}
+  constructor(private userService: UserService, private bgColors: BgColors, private elementRef: ElementRef, private router: Router, private yapService: YapService, public activatedRoute: ActivatedRoute) {}
 
   public yap: Yap = {username: "", message: ""};
+  public profilePic = "../../assets/pfb.jpg"
   public yapComments: Comment[] | undefined;
   public showReplyTextArea: boolean = false;
   public loading: boolean = false;
@@ -30,6 +32,9 @@ export class YapComponent {
       this.loading = true;
       this.yapService.getYap(s["id"], localStorage.getItem("username")).subscribe((yapResponse: Yap) => {
         this.yap = yapResponse;
+        this.userService.getUserByUsername(yapResponse.username!).subscribe((u : User) => {
+          if(u.profilePic)this.profilePic = u.profilePic;
+        });
         this.loading = false;
       }, () => {
         this.loading = false;

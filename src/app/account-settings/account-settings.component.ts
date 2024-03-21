@@ -38,14 +38,11 @@ export class AccountSettingsComponent {
 
   newPassword: String = "";
   userName: string = localStorage.getItem("username")!;
-  newUsername: String = "";
   imageUrl:string = "";
   newImageUrl : string = "";
   pictureMaxSize: number = 64000;
   showingPassword: boolean = false;
 
-  isAvailableText:string = "Enter username";
-  userExists: boolean = true;
   bgColor: number = 20;
 
 
@@ -53,9 +50,6 @@ export class AccountSettingsComponent {
     this.showingPassword = !this.showingPassword;
   }
 
-  changeName(){
-    this.changingName = !this.changingName;
-  }
 
   changePassword(){
     this.changingPassword = !this.changingPassword;
@@ -65,23 +59,6 @@ export class AccountSettingsComponent {
     this.changingPicture = false;
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     fileInput.value = "";
-  }
-
-  handleUserNameChange(event: any){
-    const username = event.target.value;
-    if(username.length === 0){return;}
-    if(!(/^[a-zA-Z]/.test(username) || /^[0-9]/.test(username)) || username.length>20){
-      this.userExists = true;
-      this.isAvailableText = "enter valid username";
-      return;
-    }
-    this.userService.userExists(username).subscribe((exists: any) => {
-      this.userExists = exists;
-      this.isAvailableText = exists ? "This username is not available" : "This username is available";
-      if (!exists) {
-        this.newUsername = username;
-      }
-    });
   }
 
   handlePasswordChange(event: any){
@@ -138,7 +115,7 @@ export class AccountSettingsComponent {
 
 
   async safeAllChanges(){
-    if(this.changingName && this.userExists){return;}
+    if(this.changingName){return;}
 
     if(this.changingPassword || this.changingName){
       this.userService.userLoggedIn = false;
@@ -149,7 +126,6 @@ export class AccountSettingsComponent {
       this.router.navigate(["/"]);
     }
 
-    let changedPassword = false;
     let changedPicture = false;
     let changedBgColor = false;
 
@@ -177,17 +153,9 @@ export class AccountSettingsComponent {
 
     if(this.changingPassword){
       this.userService.changePassword(this.userName as string, this.newPassword as string).subscribe(() => {
-        changedPassword = true;
       });
     }
 
-    while (!changedPassword && this.changingPassword){
-      await this.sleep(10);
-    }
-
-    if(this.changingName){
-      this.userService.changeUserName(this.userName  as string, this.newUsername as string).subscribe();
-    }
 
   }
 

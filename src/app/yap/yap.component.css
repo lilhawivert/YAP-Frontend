@@ -94,3 +94,13 @@ input.ng-touched.ng-invalid {
   top: 200px;
   left: 200px;
 }
+
+.pfb {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  width: 20px;
+  height: auto;
+  border-radius: 50%;
+  display: inline-block;
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
+}

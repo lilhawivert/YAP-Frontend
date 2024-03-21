@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Comment, Yap, YapService } from '../../yap.service';
+import {User, UserService} from "../../user.service";
 
 @Component({
   selector: 'app-comment',
@@ -11,6 +12,7 @@ export class CommentComponent {
   @ViewChild('replyTextArea') textareaInput!: ElementRef;
   @Input() public comment: Comment;
   @Input() public yap: Yap;
+  public profilePic = "../../assets/pfb.jpg"
 
   @Output() newReplyEvent = new EventEmitter<Comment>();
   @Output() deleteEvent = new EventEmitter<Comment>();
@@ -18,7 +20,13 @@ export class CommentComponent {
 
   public showReplyTextArea: boolean = false;
 
-  constructor(private yapService: YapService) {}
+  constructor(private userService: UserService, private yapService: YapService) {}
+
+  ngOnInit(){
+    this.userService.getUserByUsername(this.comment.username!).subscribe((u : User) => {
+      if(u.profilePic)this.profilePic = u.profilePic;
+    });
+  }
 
   public get getUsername(): string | null {
     return localStorage.getItem("username");

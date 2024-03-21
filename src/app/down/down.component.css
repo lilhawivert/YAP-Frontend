@@ -28,6 +28,7 @@ input.ng-touched.ng-invalid {
   left: 50%;
   top: 13%;
   transform: translate(-50%);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
 }
 
 .gameover{
