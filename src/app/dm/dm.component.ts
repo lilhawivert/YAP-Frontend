@@ -1,19 +1,15 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../user.service';
-// import SockJS from 'sockjs-client';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import { Subject } from 'rxjs';
-// import Stomp from 'stompjs';
-
-// declare var SockJS: any;
 var stompClient: any = null;
 
 export interface DM {
   sender: string;
   receiver: string;
   message: string;
+  date?: Date
 }
 @Component({
   selector: 'app-dm',
@@ -58,11 +54,22 @@ export class DmComponent {
 
 sendMessage() {
   stompClient.send("/send/"+this.partner+localStorage.getItem("username"), {}, this.dmInput.nativeElement.value)
-  // document.getElementById("dmTextArea")!.innerText += localStorage.getItem("username") + ": " + this.dmInput.nativeElement.value;
+  console.log(new Date(Date.now()))
   this.dms.push({sender: localStorage.getItem("username") + "", receiver: this.partner + "", message: this.dmInput.nativeElement.value})
   this.userService.sendMessage(localStorage.getItem("username"), this.partner, this.dmInput.nativeElement.value);
   this.dmInput.nativeElement.value = "";
 }
+
+formatHours(date: Date | undefined): string {
+  if(date == undefined) return "now";
+  return date?.toString().split("T")[1].split(".")[0] + "";
+}
+
+formatDate(date: Date | undefined): string { 
+  if(date == undefined) return "";
+  return date?.toString().split("T")[0] + "";
+}
+
 }
 
 

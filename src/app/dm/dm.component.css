@@ -51,3 +51,11 @@
     align-self: flex-start;
     background-color: #ECE5DD; /* Light gray for incoming messages */
   }
+
+  .date-outgoing {
+    align-self: flex-end;
+  }
+
+  .date-incoming {
+    align-self: flex-start;
+  }
