@@ -24,4 +24,50 @@ input.ng-touched.ng-invalid {
   transform: translate(-50%);
 }
 
+.gameover{
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%);
+  z-index: 2;
+}
 
+.gameover-score{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.starter{
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.down-message{
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.online-message{
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  transform: translate(-50%);
+  z-index: 2;
+}
+
+.online-button{
+  position: absolute;
+  left: 10%;
+  top: 25%;
+  transform: translate(-50%);
+  z-index: 2;
+}

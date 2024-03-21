@@ -1,6 +1,6 @@
 body{
-  background-color: white;
-  filter: invert(100%) hue-rotate(180deg);
+  background-color: var(--main-color);
+  filter: invert(var(--invertion)) hue-rotate(calc(var(--invertion)*180deg));
   overflow: auto;
   height: 100vh;
 }

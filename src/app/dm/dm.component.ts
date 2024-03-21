@@ -35,6 +35,8 @@ export class DmComponent {
 
   ngOnInit() {
     this.loading = true;
+
+
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.partner = params.get('profile');
 
@@ -46,16 +48,23 @@ export class DmComponent {
       var socket = new SockJS(this.webSocketConnect);
       console.log(this.dms)
       let tst: DM[] = this.dms;
+
+
+      let a = this;
+
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame: any) {
         stompClient.subscribe('/send/'+localStorage.getItem("username")+params.get("profile"), (request: any) => {
-          
+
           console.log(request)
           // console.log("heawer")
           // console.log(document.getElementById("dmTextArea"))
           // document.getElementById("dmTextArea")!.innerText = request.body;
-          tst.push({sender: params.get("profile") + "", receiver: localStorage.getItem("username") + "", message: request.body})
+          a.dms.push({sender: params.get("profile") + "", receiver: localStorage.getItem("username") + "", message: request.body})
           // this.dms.push({sender: params.get("profile") + "", receiver: localStorage.getItem("username") + "", message: request.body})
+
+
+
         })
       });
 
@@ -65,6 +74,10 @@ export class DmComponent {
 
 
 }
+
+  async sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 receiveMessage(event:any) {
   console.log("XXXXXXXXXX")

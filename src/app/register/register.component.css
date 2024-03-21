@@ -1,5 +1,5 @@
 body{
-  background-color: white;
+  background-color: #cccccc;
   filter: invert(100%) hue-rotate(180deg);
   overflow: auto;
   height: 100vh;

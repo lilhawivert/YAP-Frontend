@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { GeneralService } from "../general.service";
 import { Router } from "@angular/router";
 
@@ -13,6 +13,8 @@ export class DownComponent implements OnInit {
 
   started: boolean = false;
   ended: boolean = false;
+  newStart: boolean = false;
+  online: boolean = false;
 
 
   canvas!: HTMLCanvasElement;
@@ -39,7 +41,7 @@ export class DownComponent implements OnInit {
   shouterLength: number = 30;
   shoutingSpeed: number = 7;
 
-  ultiCooldown: number = 1000;
+  ultiCooldown: number = 10000;
   currentUltiWaitTime = 0;
 
   enemySpawnRate: number = 200;
@@ -58,18 +60,17 @@ export class DownComponent implements OnInit {
   allProjectiles: Projectile[] = [];
   allEnemies: Enemy[] = [];
 
-  constructor(private generalService: GeneralService) {}
+  constructor(private generalService: GeneralService, private router: Router) {}
 
   ngOnInit(): void {
+    this.statusChecker();
     this.canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d')!;
     this.cw = this.canvas.width;
     this.x = this.canvas.width/2;
     this.y = this.canvas.height/2;
 
-    this.generalService.getHealth().subscribe((r: string): void => {
-      //if (r === "OK") this.router.navigate(["/"]);
-    });
+
     this.drawAll();
 
     this.breakingAudio = new Audio();
@@ -78,12 +79,27 @@ export class DownComponent implements OnInit {
 
   }
 
+  async statusChecker(){
+    this.generalService.getHealth().subscribe((r: string): void => {
+      this.online = r === "OK";
+    },(error: any) =>{
+      this.online = false;
+    });
+    console.log(this.online)
+    setTimeout(() => this.statusChecker(), 5000);
+  }
+
+
   start(): void {
     if(this.started)return;
+    if(this.newStart){
+      this.newStart = false;
+      return;
+    }
+
     this.started = true;
+    this.resetAllVariables();
     this.playShootingSound();
-
-
 
     const mainLoop = ():void => {
       this.drawAll();
@@ -98,7 +114,6 @@ export class DownComponent implements OnInit {
       this.checkPlayerCollisions();
       this.reloadAmmoAndUlti();
       this.adjustSpawnRate();
-
       if(!this.ended)
         requestAnimationFrame(mainLoop);
     }
@@ -114,6 +129,9 @@ export class DownComponent implements OnInit {
     }
 
     this.drawText("score: "+this.score,450,30,"black",20);
+    this.drawText("move: w,a,s,d",500,70,"black",10);
+    this.drawText("shoot: leftClick",515,80,"black",10);
+    this.drawText("ulti: rightClick",530,90,"black",10);
 
     for (let i = 0; i < 20; i++) {
       this.drawRectWithBorder(3,450 + i * 5, 20, 4, "black", 1 )
@@ -251,10 +269,6 @@ export class DownComponent implements OnInit {
       else if(this.ySpeed<0) this.ySpeed += this.deceleration;
     }
 
-    //console.log("xSpeed: "+this.xSpeed);
-    //console.log("ySpeed: "+this.ySpeed);
-    //console.log("x: "+this.x);
-    //console.log("y: "+this.y);
   }
 
   checkPlayerOutside(): void{
@@ -274,13 +288,9 @@ export class DownComponent implements OnInit {
 
       let k = Math.min(k1,k2)
 
-      console.log(xv+" "+yv+" "+k)
-
-
       this.x += k * xv;
       this.y += k * yv;
 
-      console.log(this.x+" "+this.y)
 
     }
   }
@@ -298,8 +308,6 @@ export class DownComponent implements OnInit {
     if(!this.mouseDown || this.toLowAmmo){
       return;
     }
-
-    console.log("shoot")
 
     this.ammunition--;
 
@@ -338,8 +346,6 @@ export class DownComponent implements OnInit {
       x = Math.random() * 1.5 * this.cw - 0.25 * this.cw;
       y = Math.random() * 1.5 * this.cw - 0.25 * this.cw;
     } while (Math.pow(x-this.cw/2,2) + Math.pow(y-this.cw/2,2) <= Math.pow(this.cw/2+rad,2));
-    //console.log(x+" "+y)
-
 
     this.allEnemies.push(new Enemy(x,y,0,0,speed,rad,hp));
 
@@ -394,7 +400,6 @@ export class DownComponent implements OnInit {
     }
   }
 
-
   reloadAmmoAndUlti(){
     if(this.ammunition <= 0) {
       this.toLowAmmo = true;
@@ -407,25 +412,44 @@ export class DownComponent implements OnInit {
 
     this.currentUltiWaitTime = Math.min(this.currentUltiWaitTime + 1, this.ultiCooldown);
 
-    console.log(this.ammunition)
   }
 
   async fireUlti(){
     if(this.currentUltiWaitTime >= this.ultiCooldown){
       this.currentUltiWaitTime = 0;
+      this.allEnemies.splice(0,this.allEnemies.length);
+      this.drawCircle(this.cw/2,this.cw/2,this.cw/2,"green");
     }
-    this.allEnemies.splice(0,this.allEnemies.length);
-    this.drawCircle(this.cw/2,this.cw/2,this.cw/2,"green");
+
   }
 
 
   gameOver(){
+    this.newStart = true;
     this.started = false;
     this.ended = true;
-    console.log("game over");
   }
 
 
+  resetAllVariables(){
+    this.allProjectiles = [];
+    this.allEnemies = [];
+    this.x = this.canvas.width/2;
+    this.y = this.canvas.height/2;
+    this.xSpeed = 0;
+    this.ySpeed = 0;
+    this.lives = 3;
+    this.score= 0;
+    this.ammunition= this.maxAmmunition;
+    this.toLowAmmo = false;
+    this.currentShootWaitTime = 0;
+    this.currentUltiWaitTime = 0;
+    this.currentEnemySpawnWaitTime = 0;
+
+    this.ended = false;
+    this.started = true;
+
+  }
 
 
 
@@ -437,7 +461,10 @@ export class DownComponent implements OnInit {
     audio.volume = 0.2;
 
     const play = ():void => {
-      if (this.ended) return;
+      if (this.ended) {
+        audio.pause();
+        return;
+      }
       if(audio.currentTime >= 9.5){
         audio.currentTime=0;
       }
@@ -448,14 +475,15 @@ export class DownComponent implements OnInit {
         audio.currentTime = 0;
       }
 
-      setTimeout(play, 1);
+      setTimeout(play, 10);
     }
     play();
 
   }
 
   adjustSpawnRate(){
-    //this.enemySpawnRate -=
+    this.enemySpawnRate = Math.max(10,this.enemySpawnRate-0.001);
+    console.log(this.enemySpawnRate);
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -500,6 +528,10 @@ export class DownComponent implements OnInit {
   onContextMenu(event: MouseEvent): void {
     event.preventDefault();
     this.fireUlti();
+  }
+
+  goToYap(){
+    this.router.navigate(["/"])
   }
 
 }
