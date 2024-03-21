@@ -28,13 +28,17 @@
                             <div class="message outgoing" *ngIf="dm.receiver==partner">
                                 <p>{{dm.message}}</p>
                             </div>
+                            <div class="date-outgoing" *ngIf="dm.receiver==partner">{{formatHours(dm.date)}}</div>
+                            <div class="date-outgoing" *ngIf="dm.receiver==partner">{{formatDate(dm.date)}}</div>
                             <div class="message incoming" *ngIf="dm.sender==partner">
                                 <p>{{dm.message}}</p>
                             </div>
+                            <div class="date-incoming" *ngIf="dm.sender==partner">{{formatHours(dm.date)}}</div>
+                            <div class="date-incoming" *ngIf="dm.sender==partner">{{formatDate(dm.date)}}</div>
                         </div>
                     </div>
-                    <input class="text-center mb-5" type="text" #dmInput>
-                    <button (click)="sendMessage()">Send</button>
+                    <button mat-raised-button class="align-right" (click)="sendMessage()">Send</button>
+                    <input class="text-center mb-5 align-right" type="text" #dmInput placeholder="Start a message">
                     <!-- <div class="form-group"> -->
             <!-- </div> -->
         </div>
