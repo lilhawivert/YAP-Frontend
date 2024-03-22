@@ -5,12 +5,16 @@
             <div class="col-12 col-md-6" style="height: 400px">
                 <strong class="center">{{username}}</strong>
                 <div class="container">
-                    <mat-icon class="comment-icon" (click)="onClickDM()" *ngIf="notMe"
+                    <mat-icon class="comment-icon" (click)="onClickDM()" *ngIf="notMe && !userBlocked && !userBlockedMe"
                     style="cursor: pointer; color: #226699">local_post_office</mat-icon>
                     <mat-icon (click)="onClickFollow()" *ngIf="!showFollowedCheck && notMe"
                     style="cursor: pointer; color: #226699">add</mat-icon>
                     <mat-icon (click)="onClickFollow()" *ngIf="showFollowedCheck && notMe"
                     style="cursor: pointer; color: green">check</mat-icon>
+                    <mat-icon (click)="onClickBlock()" *ngIf="!userBlocked && notMe"
+                    style="cursor: pointer; color: grey">block</mat-icon>
+                    <mat-icon (click)="onClickBlock()" *ngIf="userBlocked && notMe"
+                    style="cursor: pointer; color: red">block</mat-icon>
                   </div>
                 <app-yaps></app-yaps>
             </div>

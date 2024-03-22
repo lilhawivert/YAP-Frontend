@@ -13,6 +13,8 @@ export class ProfileComponent implements OnInit {
   public username: string | null;
 
   public showFollowedCheck: boolean = false;
+  public userBlocked: boolean = false;
+  public userBlockedMe: boolean = false;
 
   constructor(private bgColors: BgColors, private elementRef: ElementRef, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -30,6 +32,14 @@ export class ProfileComponent implements OnInit {
       this.showFollowedCheck = followed;
     })
 
+    this.userService.isBlocked(localStorage.getItem("username"), this.username).subscribe((blocked: boolean) => {
+      this.userBlocked = blocked;
+    })
+
+    this.userService.amIBlocked(localStorage.getItem("username"), this.username).subscribe((blockedMe: boolean) => {
+      this.userBlockedMe = blockedMe;
+    })
+
   }
 
   public get notMe(): boolean {
@@ -43,6 +53,13 @@ export class ProfileComponent implements OnInit {
   onClickFollow() {
     this.userService.follow(localStorage.getItem("username"), this.username).subscribe((followed: boolean) => {
       this.showFollowedCheck = !this.showFollowedCheck;
+    });
+  }
+
+  onClickBlock() {
+    this.userService.block(localStorage.getItem("username"), this.username).subscribe((blocked: boolean) => {
+      this.userBlocked = !this.userBlocked;
+      if(this.showFollowedCheck) this.showFollowedCheck = false;
     });
   }
 
