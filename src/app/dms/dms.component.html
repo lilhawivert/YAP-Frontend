@@ -11,17 +11,16 @@
 </head>
 <body>
     <app-toolbar></app-toolbar>
-    
-      <div class="container h-100 w-100 align-items-center justify-content-center d-flex">
-          <div class="row w-100 d-flex justify-content-center">
-              <ng-container *ngIf="loading">
-                  <mat-spinner class="center"></mat-spinner>
-                </ng-container>
-                <ng-container *ngIf="!loading">
-              <div class="col-12 col-md-6" style="height: 400px">
-                <h1 class="text-center mb-5">Private messages</h1>
-                <div class="chat-list">
-                    <div class="chat" *ngFor="let chat of chats">
+    <div class="container h-100 w-100 align-items-center justify-content-center d-flex">
+        <div class="row w-100 d-flex justify-content-center">
+            <ng-container *ngIf="loading">
+                <mat-spinner class="center"></mat-spinner>
+            </ng-container>
+            <ng-container *ngIf="!loading">
+                <div class="col-12 col-md-6" style="height: 400px">
+                    <h1 class="text-center mb-5">Private messages</h1>
+                    <div class="chat-list">
+                        <div class="chat" *ngFor="let chat of chats">
                         <!-- <div class="avatar"> -->
                             <img *ngIf="!chat.user.profilePic" class="avatar" src="../../../assets/pfb.jpg" alt="" (click)="onClickUsername(chat.user.username)" style="cursor: pointer;">
                             <img *ngIf="chat.user.profilePic" class="avatar" [src]=chat.user.profilePic alt="" (click)="onClickUsername(chat.user.username)" style="cursor: pointer;">

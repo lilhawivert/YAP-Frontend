@@ -24,12 +24,12 @@
 </div>
 <div class="card-content" *ngIf="!comment.new">
   <div class="image-container">
-    <img [src]="profilePic" class="pfb" alt="Your Image">
+    <img [src]="profilePic" class="pfb" alt="Your Image" (click)="clickOnUser(comment.username)">
   </div>
   <div class="text-content">
     <div class="title">
-      <b *ngIf="comment.username==getUsername" style="color: #226699">{{comment.username}}</b>
-      <b *ngIf="comment.username!=getUsername">{{comment.username}}</b>
+      <b *ngIf="comment.username==getUsername" style="color: #226699" (click)="clickOnUser(comment.username)" style="cursor: pointer;">{{comment.username}}</b>
+      <b *ngIf="comment.username!=getUsername" (click)="clickOnUser(comment.username)" style="cursor: pointer;">{{comment.username}}</b>
       <span class="date">Sep 24</span>
     </div>
     <div class="description">

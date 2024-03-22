@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Comment, Yap, YapService } from '../../yap.service';
 import {User, UserService} from "../../user.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment',
@@ -20,7 +21,7 @@ export class CommentComponent {
 
   public showReplyTextArea: boolean = false;
 
-  constructor(private userService: UserService, private yapService: YapService) {}
+  constructor(private userService: UserService, private yapService: YapService, private router: Router) {}
 
   ngOnInit(){
     this.userService.getUserByUsername(this.comment.username!).subscribe((u : User) => {
@@ -54,6 +55,10 @@ export class CommentComponent {
 
   public deleteOwnComment() {
     this.deleteEvent.emit(this.comment);
+  }
+
+  public clickOnUser(username: string) {
+    this.router.navigate([username]);
   }
 
 }
